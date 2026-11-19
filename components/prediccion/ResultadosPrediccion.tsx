@@ -25,7 +25,7 @@ function condicionesElegidas(filas: FilaResultado[]): string | null {
   const festivo = filas.some((f) => f.dia.festivo !== "0");
   const partes = [promo && "promociones", school && "vacaciones escolares", festivo && "festivos"].filter(Boolean) as string[];
   if (partes.length === 0) return null;
-  if (partes.length === 1) return `Las ${partes[0]} seleccionadas`.replace("Las festivos", "Los festivos");
+  if (partes.length === 1) return partes[0] === "festivos" ? "Los festivos seleccionados" : `Las ${partes[0]} seleccionadas`;
   return `Las condiciones seleccionadas (${partes.slice(0, -1).join(", ")} y ${partes[partes.length - 1]})`;
 }
 
