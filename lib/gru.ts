@@ -51,21 +51,25 @@ export function cargarGru(meta: GruMeta): Promise<GruCargado> {
 
 type Exogenas = number[];
 
-/** Vector de exógenas de un día en el orden de FEATURES[1:] del backend. */
+/**
+ * Vector de exógenas de un día en el orden de FEATURES[1:] del backend. La columna promo va
+ * en 0: en el modelo híbrido la promo no entra a la red, se aplica como (1 + β·promo).
+ */
 function exogenas(d: ExogDia): Exogenas {
   const { dow, mes } = partesFecha(d.fecha);
   return [
-    d.promo, d.school_holiday, d.festivo_a, d.festivo_b, d.festivo_c,
+    0, d.school_holiday, d.festivo_a, d.festivo_b, d.festivo_c,
     Math.sin((2 * Math.PI * dow) / 7), Math.cos((2 * Math.PI * dow) / 7),
     Math.sin((2 * Math.PI * (mes - 1)) / 12), Math.cos((2 * Math.PI * (mes - 1)) / 12),
   ];
 }
 
 /**
- * Pronóstico recursivo genérico: parte de una ventana inicial (`historia`, ventas ya
- * escaladas con el MinMax de los metadatos) y predice un día por cada elemento de `futuro`.
- * Cada predicción se agrega a la historia y alimenta la siguiente ventana, igual que en la
- * evaluación del backend. Devuelve las ventas desescaladas y recortadas a ≥ 0.
+ * Pronóstico recursivo genérico: parte de una ventana inicial (`historia`, ventas
+ * NEUTRALIZADAS ya escaladas con el MinMax de los metadatos) y predice un día por cada
+ * elemento de `futuro`. La red predice la venta neutralizada, que entra tal cual en la
+ * siguiente ventana (igual que en entrenar_gru.py); la venta final de cada día es
+ * neutra · (1 + β·promo del día). Devuelve las ventas desescaladas y recortadas a ≥ 0.
  */
 export async function pronosticarGruDesde(meta: GruMeta, historia: DiaVentana[], futuro: ExogDia[]): Promise<PuntoPronostico[]> {
   const { modelo } = await cargarGru(meta);
@@ -83,7 +87,11 @@ export async function pronosticarGruDesde(meta: GruMeta, historia: DiaVentana[],
     for (let k = 0; k < ventana; k++) x.push([ventas[t - ventana + k], ...exog[t - ventana + 1 + k]]);
     ventas.push(modelo.predecir(x)[0]);
   }
-  return futuro.map((d, i) => ({ fecha: d.fecha, pred: Math.max(0, ventas[ventana + i] * rango + meta.escalador_min) }));
+  const beta = meta.ajuste_promo_beta ?? 0;
+  return futuro.map((d, i) => {
+    const neutra = ventas[ventana + i] * rango + meta.escalador_min;
+    return { fecha: d.fecha, pred: Math.max(0, neutra * (1 + beta * d.promo)) };
+  });
 }
 
 /** Pronóstico de un escenario de /escenarios desde el último dato del dataset (ventana_gru). */

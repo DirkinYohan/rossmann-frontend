@@ -125,8 +125,10 @@ export function historialGru(meta: GruMeta, hist: DiaHistorial[]): DiaVentana[] 
     return a + ((b - a) * (i - ant)) / (sig - ant);
   });
   const rango = meta.escalador_max - meta.escalador_min;
+  const beta = meta.ajuste_promo_beta ?? 0;
   const exog = exogGruDesde(hist);
-  return exog.map((e, i) => ({ ...e, ventas_esc: (interpoladas[i] - meta.escalador_min) / rango }));
+  // El GRU recibe la venta neutralizada: venta / (1 + β·promo), como en entrenar_gru.py.
+  return exog.map((e, i) => ({ ...e, ventas_esc: (interpoladas[i] / (1 + beta * e.promo) - meta.escalador_min) / rango }));
 }
 
 /** Historial del usuario para `results.apply` de ARIMA (días cerrados → observación faltante). */

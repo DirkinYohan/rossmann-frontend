@@ -101,6 +101,11 @@ export type GruMeta = {
   features: string[];
   escalador_min: number;
   escalador_max: number;
+  /**
+   * Efecto multiplicativo de la promo (β). El GRU trabaja con la venta neutralizada
+   * venta / (1 + β·promo) y con la columna promo en 0; la venta final = salida · (1 + β·promo).
+   */
+  ajuste_promo_beta: number;
   capas: Record<string, string | number | boolean>[];
   ultima_fecha: string;
   mape_test: number;
