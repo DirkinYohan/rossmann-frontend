@@ -3,13 +3,13 @@
 import { RUTAS, useDatos } from "@/lib/datos";
 import { COLOR } from "@/lib/colores";
 import { pct } from "@/lib/formato";
-import type { Comparacion, InfoSerie } from "@/lib/tipos";
+import type { InfoSerie, MetricasJson } from "@/lib/tipos";
 
 /** Resumen de resultados en la portada: series elegidas y modelo ganador. */
 export function InicioResumen() {
-  const { datos, error } = useDatos<{ series: InfoSerie[]; comparacion: Comparacion }>({
+  const { datos, error } = useDatos<{ series: InfoSerie[]; metricas: MetricasJson }>({
     series: RUTAS.series,
-    comparacion: RUTAS.comparacion,
+    metricas: RUTAS.metricas,
   });
   if (error) {
     return (
@@ -19,7 +19,7 @@ export function InicioResumen() {
     );
   }
   if (!datos) return <div className="h-40 animate-pulse rounded-xl bg-superficie" />;
-  const c = datos.comparacion;
+  const c = datos.metricas;
   const ganador = c.mejor_modelo_general;
   return (
     <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">

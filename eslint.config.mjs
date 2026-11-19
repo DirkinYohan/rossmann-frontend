@@ -12,8 +12,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Binarios de onnxruntime-web copiados por scripts/copiar-ort.mjs
-    "public/ort/**",
   ]),
 ]);
 

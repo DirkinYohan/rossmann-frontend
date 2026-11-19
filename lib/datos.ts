@@ -1,7 +1,8 @@
 "use client";
 
 // Carga de los archivos estáticos de /public. El frontend NO habla con ningún backend:
-// todo lo que necesita lo dejó el pipeline de Python en public/data y public/models.
+// todo lo que necesita lo dejó el pipeline de Python en public/data y public/models, y los
+// modelos se ejecutan aquí mismo (ARIMA con Pyodide, GRU con un forward pass en TypeScript).
 
 import { useEffect, useState } from "react";
 
@@ -47,9 +48,9 @@ export function useDatos<T extends Record<string, unknown>>(rutas: { [K in keyof
 
 export const RUTAS = {
   series: "/data/series.json",
-  arima: "/data/arima_escenarios.json",
-  gru: "/data/gru_resultados.json",
-  comparacion: "/data/comparacion_metricas.json",
-  estacionalidad: "/data/estacionalidad.json",
-  gruConfig: "/models/gru_config.json",
+  historicos: "/data/historicos.json",
+  metricas: "/data/metricas.json",
+  estacionalidad: "/data/estacionalidad_informe.json",
+  arimaMeta: (serie: string) => `/data/arima_meta_${serie}.json`,
+  gruMeta: (serie: string) => `/data/gru_meta_${serie}.json`,
 } as const;

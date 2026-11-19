@@ -1,6 +1,6 @@
 [
   {
-    "id": "total",
+    "id": "total_cadena",
     "store": null,
     "store_type": null,
     "criterio": "Suma diaria de ventas de todas las tiendas abiertas",

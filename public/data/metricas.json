@@ -1,0 +1,2570 @@
+{
+ "metricas": [
+  "RMSE",
+  "MAE",
+  "MAPE"
+ ],
+ "criterio": "Menor es mejor en las tres métricas; MAPE calculado solo en días abiertos.",
+ "descripcion_metricas": {
+  "RMSE": "Raíz del error cuadrático medio: penaliza más los errores grandes.",
+  "MAE": "Error absoluto medio: error promedio en unidades de venta (€ por día).",
+  "MAPE": "Error porcentual absoluto medio (%), excluyendo días con venta real 0."
+ },
+ "tabla": [
+  {
+   "serie": "total_cadena",
+   "nombre": "Total cadena",
+   "test_inicio": "2015-06-20",
+   "test_fin": "2015-07-31",
+   "ARIMA": {
+    "RMSE": 744196.65,
+    "MAE": 542850.66,
+    "MAPE": 8.83
+   },
+   "GRU": {
+    "RMSE": 660473.29,
+    "MAE": 443918.89,
+    "MAPE": 15.25
+   },
+   "mejor": {
+    "RMSE": "GRU",
+    "MAE": "GRU",
+    "MAPE": "ARIMA"
+   },
+   "mejor_global": "GRU"
+  },
+  {
+   "serie": "tienda_770",
+   "nombre": "Tienda 770 (tipo a)",
+   "test_inicio": "2015-06-20",
+   "test_fin": "2015-07-31",
+   "ARIMA": {
+    "RMSE": 1832.1,
+    "MAE": 1705.86,
+    "MAPE": 39.32
+   },
+   "GRU": {
+    "RMSE": 1527.43,
+    "MAE": 1418.44,
+    "MAPE": 32.29
+   },
+   "mejor": {
+    "RMSE": "GRU",
+    "MAE": "GRU",
+    "MAPE": "GRU"
+   },
+   "mejor_global": "GRU"
+  },
+  {
+   "serie": "tienda_1097",
+   "nombre": "Tienda 1097 (tipo b)",
+   "test_inicio": "2015-06-20",
+   "test_fin": "2015-07-31",
+   "ARIMA": {
+    "RMSE": 672.09,
+    "MAE": 449.91,
+    "MAPE": 4.0
+   },
+   "GRU": {
+    "RMSE": 1498.78,
+    "MAE": 1329.85,
+    "MAPE": 12.12
+   },
+   "mejor": {
+    "RMSE": "ARIMA",
+    "MAE": "ARIMA",
+    "MAPE": "ARIMA"
+   },
+   "mejor_global": "ARIMA"
+  },
+  {
+   "serie": "tienda_1044",
+   "nombre": "Tienda 1044 (tipo c)",
+   "test_inicio": "2015-06-20",
+   "test_fin": "2015-07-31",
+   "ARIMA": {
+    "RMSE": 1044.67,
+    "MAE": 792.26,
+    "MAPE": 13.44
+   },
+   "GRU": {
+    "RMSE": 1036.34,
+    "MAE": 749.65,
+    "MAPE": 12.33
+   },
+   "mejor": {
+    "RMSE": "GRU",
+    "MAE": "GRU",
+    "MAPE": "GRU"
+   },
+   "mejor_global": "GRU"
+  },
+  {
+   "serie": "tienda_352",
+   "nombre": "Tienda 352 (tipo d)",
+   "test_inicio": "2015-06-20",
+   "test_fin": "2015-07-31",
+   "ARIMA": {
+    "RMSE": 731.63,
+    "MAE": 626.38,
+    "MAPE": 9.32
+   },
+   "GRU": {
+    "RMSE": 759.87,
+    "MAE": 653.33,
+    "MAPE": 9.57
+   },
+   "mejor": {
+    "RMSE": "ARIMA",
+    "MAE": "ARIMA",
+    "MAPE": "ARIMA"
+   },
+   "mejor_global": "ARIMA"
+  },
+  {
+   "serie": "tienda_262",
+   "nombre": "Tienda 262 (tipo b, mayor volumen)",
+   "test_inicio": "2015-06-20",
+   "test_fin": "2015-07-31",
+   "ARIMA": {
+    "RMSE": 1341.66,
+    "MAE": 1033.75,
+    "MAPE": 4.7
+   },
+   "GRU": {
+    "RMSE": 1857.95,
+    "MAE": 1580.39,
+    "MAPE": 7.64
+   },
+   "mejor": {
+    "RMSE": "ARIMA",
+    "MAE": "ARIMA",
+    "MAPE": "ARIMA"
+   },
+   "mejor_global": "ARIMA"
+  }
+ ],
+ "series": {
+  "total_cadena": {
+   "serie": "total_cadena",
+   "nombre": "Total cadena",
+   "test_inicio": "2015-06-20",
+   "test_fin": "2015-07-31",
+   "ARIMA": {
+    "RMSE": 744196.65,
+    "MAE": 542850.66,
+    "MAPE": 8.83
+   },
+   "GRU": {
+    "RMSE": 660473.29,
+    "MAE": 443918.89,
+    "MAPE": 15.25
+   },
+   "mejor": {
+    "RMSE": "GRU",
+    "MAE": "GRU",
+    "MAPE": "ARIMA"
+   },
+   "mejor_global": "GRU",
+   "test": [
+    {
+     "fecha": "2015-06-20",
+     "real": 6390661.0,
+     "abierto": 1,
+     "arima": 6338626.79,
+     "arima_li": 4159179.43,
+     "arima_ls": 8518074.15,
+     "gru": 6355750.0
+    },
+    {
+     "fecha": "2015-06-21",
+     "real": 249849.0,
+     "abierto": 1,
+     "arima": 145011.1,
+     "arima_li": 0.0,
+     "arima_ls": 2361679.22,
+     "gru": 252788.98
+    },
+    {
+     "fecha": "2015-06-22",
+     "real": 6552538.0,
+     "abierto": 1,
+     "arima": 8485302.7,
+     "arima_li": 6249134.99,
+     "arima_ls": 10721470.41,
+     "gru": 6963663.0
+    },
+    {
+     "fecha": "2015-06-23",
+     "real": 6292372.0,
+     "abierto": 1,
+     "arima": 7101714.53,
+     "arima_li": 4861755.68,
+     "arima_ls": 9341673.37,
+     "gru": 6322214.5
+    },
+    {
+     "fecha": "2015-06-24",
+     "real": 6257424.0,
+     "abierto": 1,
+     "arima": 6392929.23,
+     "arima_li": 4152393.35,
+     "arima_ls": 8633465.1,
+     "gru": 6079802.0
+    },
+    {
+     "fecha": "2015-06-25",
+     "real": 6211764.0,
+     "abierto": 1,
+     "arima": 6121293.75,
+     "arima_li": 3880700.73,
+     "arima_ls": 8361886.78,
+     "gru": 6235434.0
+    },
+    {
+     "fecha": "2015-06-26",
+     "real": 6634687.0,
+     "abierto": 1,
+     "arima": 6362904.11,
+     "arima_li": 4121698.31,
+     "arima_ls": 8604109.91,
+     "gru": 6913063.5
+    },
+    {
+     "fecha": "2015-06-27",
+     "real": 6538314.0,
+     "abierto": 1,
+     "arima": 6488122.92,
+     "arima_li": 3929575.45,
+     "arima_ls": 9046670.39,
+     "gru": 6458023.0
+    },
+    {
+     "fecha": "2015-06-28",
+     "real": 262669.0,
+     "abierto": 1,
+     "arima": 265478.65,
+     "arima_li": 0.0,
+     "arima_ls": 2828901.11,
+     "gru": 360247.41
+    },
+    {
+     "fecha": "2015-06-29",
+     "real": 11916672.0,
+     "abierto": 1,
+     "arima": 11344241.55,
+     "arima_li": 8779246.4,
+     "arima_ls": 13909236.71,
+     "gru": 11087295.0
+    },
+    {
+     "fecha": "2015-06-30",
+     "real": 11483932.0,
+     "abierto": 1,
+     "arima": 9812504.98,
+     "arima_li": 7247503.51,
+     "arima_ls": 12377506.45,
+     "gru": 9189267.0
+    },
+    {
+     "fecha": "2015-07-01",
+     "real": 8989672.0,
+     "abierto": 1,
+     "arima": 9015770.37,
+     "arima_li": 6450338.02,
+     "arima_ls": 11581202.72,
+     "gru": 8358693.0
+    },
+    {
+     "fecha": "2015-07-02",
+     "real": 8446293.0,
+     "abierto": 1,
+     "arima": 8696272.08,
+     "arima_li": 6129622.52,
+     "arima_ls": 11262921.65,
+     "gru": 7965359.5
+    },
+    {
+     "fecha": "2015-07-03",
+     "real": 8530388.0,
+     "abierto": 1,
+     "arima": 8935628.97,
+     "arima_li": 6367327.39,
+     "arima_ls": 11503930.56,
+     "gru": 8043345.5
+    },
+    {
+     "fecha": "2015-07-04",
+     "real": 6054276.0,
+     "abierto": 1,
+     "arima": 6470666.52,
+     "arima_li": 3534102.38,
+     "arima_ls": 9407230.66,
+     "gru": 5883978.5
+    },
+    {
+     "fecha": "2015-07-05",
+     "real": 269248.0,
+     "abierto": 1,
+     "arima": 249819.12,
+     "arima_li": 0.0,
+     "arima_ls": 3192374.25,
+     "gru": 0.0
+    },
+    {
+     "fecha": "2015-07-06",
+     "real": 7540473.0,
+     "abierto": 1,
+     "arima": 8856046.92,
+     "arima_li": 5911155.89,
+     "arima_ls": 11800937.95,
+     "gru": 7172932.5
+    },
+    {
+     "fecha": "2015-07-07",
+     "real": 6393024.0,
+     "abierto": 1,
+     "arima": 7357215.34,
+     "arima_li": 4412302.88,
+     "arima_ls": 10302127.79,
+     "gru": 6143497.0
+    },
+    {
+     "fecha": "2015-07-08",
+     "real": 6915625.0,
+     "abierto": 1,
+     "arima": 6579538.15,
+     "arima_li": 3634423.17,
+     "arima_ls": 9524653.13,
+     "gru": 5829127.0
+    },
+    {
+     "fecha": "2015-07-09",
+     "real": 6938182.0,
+     "abierto": 1,
+     "arima": 6269846.51,
+     "arima_li": 3323867.16,
+     "arima_ls": 9215825.87,
+     "gru": 6000178.0
+    },
+    {
+     "fecha": "2015-07-10",
+     "real": 7064909.0,
+     "abierto": 1,
+     "arima": 6508538.92,
+     "arima_li": 3561264.71,
+     "arima_ls": 9455813.12,
+     "gru": 6367395.5
+    },
+    {
+     "fecha": "2015-07-11",
+     "real": 6262022.0,
+     "abierto": 1,
+     "arima": 6475297.42,
+     "arima_li": 3223131.39,
+     "arima_ls": 9727463.45,
+     "gru": 5735388.5
+    },
+    {
+     "fecha": "2015-07-12",
+     "real": 277047.0,
+     "abierto": 1,
+     "arima": 253456.36,
+     "arima_li": 0.0,
+     "arima_ls": 3510545.36,
+     "gru": 28399.59
+    },
+    {
+     "fecha": "2015-07-13",
+     "real": 10841267.0,
+     "abierto": 1,
+     "arima": 11419874.84,
+     "arima_li": 8160924.37,
+     "arima_ls": 14678825.31,
+     "gru": 10645001.0
+    },
+    {
+     "fecha": "2015-07-14",
+     "real": 9340405.0,
+     "abierto": 1,
+     "arima": 9912851.02,
+     "arima_li": 6653892.34,
+     "arima_ls": 13171809.7,
+     "gru": 8864758.0
+    },
+    {
+     "fecha": "2015-07-15",
+     "real": 8756137.0,
+     "abierto": 1,
+     "arima": 9130454.31,
+     "arima_li": 5871286.02,
+     "arima_ls": 12389622.59,
+     "gru": 8084942.5
+    },
+    {
+     "fecha": "2015-07-16",
+     "real": 8373873.0,
+     "abierto": 1,
+     "arima": 8896695.48,
+     "arima_li": 5636723.46,
+     "arima_ls": 12156667.5,
+     "gru": 7836759.5
+    },
+    {
+     "fecha": "2015-07-17",
+     "real": 7949337.0,
+     "abierto": 1,
+     "arima": 9135582.19,
+     "arima_li": 5874434.37,
+     "arima_ls": 12396730.01,
+     "gru": 7924955.0
+    },
+    {
+     "fecha": "2015-07-18",
+     "real": 6448982.0,
+     "abierto": 1,
+     "arima": 6473452.03,
+     "arima_li": 2929332.22,
+     "arima_ls": 10017571.83,
+     "gru": 5855619.5
+    },
+    {
+     "fecha": "2015-07-19",
+     "real": 298418.0,
+     "abierto": 1,
+     "arima": 251929.25,
+     "arima_li": 0.0,
+     "arima_ls": 3800721.12,
+     "gru": 0.0
+    },
+    {
+     "fecha": "2015-07-20",
+     "real": 7339321.0,
+     "abierto": 1,
+     "arima": 9128197.82,
+     "arima_li": 5577616.27,
+     "arima_ls": 12678779.37,
+     "gru": 7375735.0
+    },
+    {
+     "fecha": "2015-07-21",
+     "real": 6356482.0,
+     "abierto": 1,
+     "arima": 7623246.84,
+     "arima_li": 4072653.81,
+     "arima_ls": 11173839.86,
+     "gru": 6243847.5
+    },
+    {
+     "fecha": "2015-07-22",
+     "real": 6110388.0,
+     "abierto": 1,
+     "arima": 6842074.35,
+     "arima_li": 3291301.75,
+     "arima_ls": 10392846.96,
+     "gru": 5960804.5
+    },
+    {
+     "fecha": "2015-07-23",
+     "real": 6687068.0,
+     "abierto": 1,
+     "arima": 6545155.45,
+     "arima_li": 2993661.63,
+     "arima_ls": 10096649.27,
+     "gru": 6010757.0
+    },
+    {
+     "fecha": "2015-07-24",
+     "real": 6601325.0,
+     "abierto": 1,
+     "arima": 6784057.1,
+     "arima_li": 3231496.88,
+     "arima_ls": 10336617.32,
+     "gru": 6334379.5
+    },
+    {
+     "fecha": "2015-07-25",
+     "real": 6021666.0,
+     "abierto": 1,
+     "arima": 6488233.39,
+     "arima_li": 2675255.42,
+     "arima_ls": 10301211.35,
+     "gru": 5696667.5
+    },
+    {
+     "fecha": "2015-07-26",
+     "real": 285865.0,
+     "abierto": 1,
+     "arima": 275131.26,
+     "arima_li": 0.0,
+     "arima_ls": 4092432.32,
+     "gru": 0.0
+    },
+    {
+     "fecha": "2015-07-27",
+     "real": 10707292.0,
+     "abierto": 1,
+     "arima": 11686514.49,
+     "arima_li": 7867560.58,
+     "arima_ls": 15505468.4,
+     "gru": 10679573.0
+    },
+    {
+     "fecha": "2015-07-28",
+     "real": 9115073.0,
+     "abierto": 1,
+     "arima": 10181090.88,
+     "arima_li": 6362126.8,
+     "arima_ls": 14000054.95,
+     "gru": 8959342.0
+    },
+    {
+     "fecha": "2015-07-29",
+     "real": 8499962.0,
+     "abierto": 1,
+     "arima": 9399646.01,
+     "arima_li": 5580513.59,
+     "arima_ls": 13218778.44,
+     "gru": 8200822.0
+    },
+    {
+     "fecha": "2015-07-30",
+     "real": 8798854.0,
+     "abierto": 1,
+     "arima": 9136311.83,
+     "arima_li": 5316507.38,
+     "arima_ls": 12956116.28,
+     "gru": 7921258.0
+    },
+    {
+     "fecha": "2015-07-31",
+     "real": 10109742.0,
+     "abierto": 1,
+     "arima": 9375225.52,
+     "arima_li": 5554428.68,
+     "arima_ls": 13196022.37,
+     "gru": 7887733.0
+    }
+   ]
+  },
+  "tienda_770": {
+   "serie": "tienda_770",
+   "nombre": "Tienda 770 (tipo a)",
+   "test_inicio": "2015-06-20",
+   "test_fin": "2015-07-31",
+   "ARIMA": {
+    "RMSE": 1832.1,
+    "MAE": 1705.86,
+    "MAPE": 39.32
+   },
+   "GRU": {
+    "RMSE": 1527.43,
+    "MAE": 1418.44,
+    "MAPE": 32.29
+   },
+   "mejor": {
+    "RMSE": "GRU",
+    "MAE": "GRU",
+    "MAPE": "GRU"
+   },
+   "mejor_global": "GRU",
+   "test": [
+    {
+     "fecha": "2015-06-20",
+     "real": 3142.0,
+     "abierto": 1,
+     "arima": 2685.86,
+     "arima_li": 704.71,
+     "arima_ls": 4667.01,
+     "gru": 3847.37
+    },
+    {
+     "fecha": "2015-06-21",
+     "real": 3253.0,
+     "abierto": 0,
+     "arima": 4857.73,
+     "arima_li": 2595.93,
+     "arima_ls": 7119.54,
+     "gru": 4220.33
+    },
+    {
+     "fecha": "2015-06-22",
+     "real": 3364.0,
+     "abierto": 1,
+     "arima": 5674.17,
+     "arima_li": 3274.59,
+     "arima_ls": 8073.74,
+     "gru": 5062.06
+    },
+    {
+     "fecha": "2015-06-23",
+     "real": 3866.0,
+     "abierto": 1,
+     "arima": 4959.5,
+     "arima_li": 2488.83,
+     "arima_ls": 7430.16,
+     "gru": 4521.37
+    },
+    {
+     "fecha": "2015-06-24",
+     "real": 4449.0,
+     "abierto": 1,
+     "arima": 4753.92,
+     "arima_li": 2245.73,
+     "arima_ls": 7262.11,
+     "gru": 4758.19
+    },
+    {
+     "fecha": "2015-06-25",
+     "real": 3739.0,
+     "abierto": 1,
+     "arima": 5247.8,
+     "arima_li": 2719.63,
+     "arima_ls": 7775.96,
+     "gru": 5452.45
+    },
+    {
+     "fecha": "2015-06-26",
+     "real": 4060.0,
+     "abierto": 1,
+     "arima": 5359.84,
+     "arima_li": 2820.98,
+     "arima_ls": 7898.71,
+     "gru": 5449.91
+    },
+    {
+     "fecha": "2015-06-27",
+     "real": 2858.0,
+     "abierto": 1,
+     "arima": 4431.79,
+     "arima_li": 1892.09,
+     "arima_ls": 6971.49,
+     "gru": 3934.21
+    },
+    {
+     "fecha": "2015-06-28",
+     "real": 5694.0,
+     "abierto": 0,
+     "arima": 6281.97,
+     "arima_li": 3742.27,
+     "arima_ls": 8821.67,
+     "gru": 6346.06
+    },
+    {
+     "fecha": "2015-06-29",
+     "real": 8530.0,
+     "abierto": 1,
+     "arima": 9350.28,
+     "arima_li": 6810.58,
+     "arima_ls": 11889.98,
+     "gru": 9724.99
+    },
+    {
+     "fecha": "2015-06-30",
+     "real": 6451.0,
+     "abierto": 1,
+     "arima": 8102.69,
+     "arima_li": 5563.01,
+     "arima_ls": 10642.37,
+     "gru": 8273.69
+    },
+    {
+     "fecha": "2015-07-01",
+     "real": 5541.0,
+     "abierto": 1,
+     "arima": 7689.38,
+     "arima_li": 5149.68,
+     "arima_ls": 10229.07,
+     "gru": 7291.95
+    },
+    {
+     "fecha": "2015-07-02",
+     "real": 5146.0,
+     "abierto": 1,
+     "arima": 7945.9,
+     "arima_li": 5406.22,
+     "arima_ls": 10485.57,
+     "gru": 7383.33
+    },
+    {
+     "fecha": "2015-07-03",
+     "real": 5009.0,
+     "abierto": 1,
+     "arima": 7856.73,
+     "arima_li": 5317.07,
+     "arima_ls": 10396.39,
+     "gru": 7016.22
+    },
+    {
+     "fecha": "2015-07-04",
+     "real": 2979.0,
+     "abierto": 1,
+     "arima": 4402.14,
+     "arima_li": 1862.05,
+     "arima_ls": 6942.23,
+     "gru": 4132.95
+    },
+    {
+     "fecha": "2015-07-05",
+     "real": 3481.5,
+     "abierto": 0,
+     "arima": 6241.96,
+     "arima_li": 3701.75,
+     "arima_ls": 8782.18,
+     "gru": 4929.37
+    },
+    {
+     "fecha": "2015-07-06",
+     "real": 3984.0,
+     "abierto": 1,
+     "arima": 6867.37,
+     "arima_li": 4327.09,
+     "arima_ls": 9407.65,
+     "gru": 5897.48
+    },
+    {
+     "fecha": "2015-07-07",
+     "real": 4016.0,
+     "abierto": 1,
+     "arima": 5660.32,
+     "arima_li": 3120.02,
+     "arima_ls": 8200.62,
+     "gru": 4958.06
+    },
+    {
+     "fecha": "2015-07-08",
+     "real": 4274.0,
+     "abierto": 1,
+     "arima": 5253.22,
+     "arima_li": 2712.88,
+     "arima_ls": 7793.55,
+     "gru": 4848.83
+    },
+    {
+     "fecha": "2015-07-09",
+     "real": 3917.0,
+     "abierto": 1,
+     "arima": 5525.17,
+     "arima_li": 2984.85,
+     "arima_ls": 8065.49,
+     "gru": 5515.99
+    },
+    {
+     "fecha": "2015-07-10",
+     "real": 3943.0,
+     "abierto": 1,
+     "arima": 5450.8,
+     "arima_li": 2910.49,
+     "arima_ls": 7991.11,
+     "gru": 5411.83
+    },
+    {
+     "fecha": "2015-07-11",
+     "real": 3024.0,
+     "abierto": 1,
+     "arima": 4428.33,
+     "arima_li": 1887.98,
+     "arima_ls": 6968.68,
+     "gru": 4127.28
+    },
+    {
+     "fecha": "2015-07-12",
+     "real": 5063.0,
+     "abierto": 0,
+     "arima": 6263.53,
+     "arima_li": 3723.17,
+     "arima_ls": 8803.89,
+     "gru": 6522.92
+    },
+    {
+     "fecha": "2015-07-13",
+     "real": 7102.0,
+     "abierto": 1,
+     "arima": 9332.78,
+     "arima_li": 6792.41,
+     "arima_ls": 11873.14,
+     "gru": 9707.8
+    },
+    {
+     "fecha": "2015-07-14",
+     "real": 6273.0,
+     "abierto": 1,
+     "arima": 8117.32,
+     "arima_li": 5576.96,
+     "arima_ls": 10657.67,
+     "gru": 8129.95
+    },
+    {
+     "fecha": "2015-07-15",
+     "real": 6964.0,
+     "abierto": 1,
+     "arima": 7707.06,
+     "arima_li": 5166.69,
+     "arima_ls": 10247.43,
+     "gru": 7253.2
+    },
+    {
+     "fecha": "2015-07-16",
+     "real": 5731.0,
+     "abierto": 1,
+     "arima": 7975.31,
+     "arima_li": 5434.96,
+     "arima_ls": 10515.65,
+     "gru": 7425.99
+    },
+    {
+     "fecha": "2015-07-17",
+     "real": 4606.0,
+     "abierto": 1,
+     "arima": 7897.76,
+     "arima_li": 5357.43,
+     "arima_ls": 10438.09,
+     "gru": 7101.16
+    },
+    {
+     "fecha": "2015-07-18",
+     "real": 2985.0,
+     "abierto": 1,
+     "arima": 4427.55,
+     "arima_li": 1887.16,
+     "arima_ls": 6967.93,
+     "gru": 4217.99
+    },
+    {
+     "fecha": "2015-07-19",
+     "real": 3564.0,
+     "abierto": 0,
+     "arima": 6262.66,
+     "arima_li": 3722.26,
+     "arima_ls": 8803.05,
+     "gru": 4977.99
+    },
+    {
+     "fecha": "2015-07-20",
+     "real": 4143.0,
+     "abierto": 1,
+     "arima": 6883.08,
+     "arima_li": 4342.68,
+     "arima_ls": 9423.48,
+     "gru": 5913.34
+    },
+    {
+     "fecha": "2015-07-21",
+     "real": 4277.0,
+     "abierto": 1,
+     "arima": 5668.33,
+     "arima_li": 3127.94,
+     "arima_ls": 8208.72,
+     "gru": 4971.42
+    },
+    {
+     "fecha": "2015-07-22",
+     "real": 3312.0,
+     "abierto": 1,
+     "arima": 5258.21,
+     "arima_li": 2717.8,
+     "arima_ls": 7798.61,
+     "gru": 4860.11
+    },
+    {
+     "fecha": "2015-07-23",
+     "real": 4187.0,
+     "abierto": 1,
+     "arima": 5526.73,
+     "arima_li": 2986.35,
+     "arima_ls": 8067.11,
+     "gru": 5525.19
+    },
+    {
+     "fecha": "2015-07-24",
+     "real": 3506.0,
+     "abierto": 1,
+     "arima": 5449.45,
+     "arima_li": 2909.08,
+     "arima_ls": 7989.81,
+     "gru": 5427.03
+    },
+    {
+     "fecha": "2015-07-25",
+     "real": 2543.0,
+     "abierto": 1,
+     "arima": 4427.94,
+     "arima_li": 1887.53,
+     "arima_ls": 6968.36,
+     "gru": 4137.27
+    },
+    {
+     "fecha": "2015-07-26",
+     "real": 5103.0,
+     "abierto": 0,
+     "arima": 6262.99,
+     "arima_li": 3722.56,
+     "arima_ls": 8803.42,
+     "gru": 6531.49
+    },
+    {
+     "fecha": "2015-07-27",
+     "real": 7663.0,
+     "abierto": 1,
+     "arima": 9332.31,
+     "arima_li": 6791.88,
+     "arima_ls": 11872.75,
+     "gru": 9713.53
+    },
+    {
+     "fecha": "2015-07-28",
+     "real": 6901.0,
+     "abierto": 1,
+     "arima": 8117.43,
+     "arima_li": 5577.01,
+     "arima_ls": 10657.85,
+     "gru": 8133.55
+    },
+    {
+     "fecha": "2015-07-29",
+     "real": 5708.0,
+     "abierto": 1,
+     "arima": 7707.26,
+     "arima_li": 5166.82,
+     "arima_ls": 10247.69,
+     "gru": 7255.69
+    },
+    {
+     "fecha": "2015-07-30",
+     "real": 6166.0,
+     "abierto": 1,
+     "arima": 7975.72,
+     "arima_li": 5435.31,
+     "arima_ls": 10516.14,
+     "gru": 7428.01
+    },
+    {
+     "fecha": "2015-07-31",
+     "real": 6490.0,
+     "abierto": 1,
+     "arima": 7898.39,
+     "arima_li": 5357.99,
+     "arima_ls": 10438.79,
+     "gru": 7103.33
+    }
+   ]
+  },
+  "tienda_1097": {
+   "serie": "tienda_1097",
+   "nombre": "Tienda 1097 (tipo b)",
+   "test_inicio": "2015-06-20",
+   "test_fin": "2015-07-31",
+   "ARIMA": {
+    "RMSE": 672.09,
+    "MAE": 449.91,
+    "MAPE": 4.0
+   },
+   "GRU": {
+    "RMSE": 1498.78,
+    "MAE": 1329.85,
+    "MAPE": 12.12
+   },
+   "mejor": {
+    "RMSE": "ARIMA",
+    "MAE": "ARIMA",
+    "MAPE": "ARIMA"
+   },
+   "mejor_global": "ARIMA",
+   "test": [
+    {
+     "fecha": "2015-06-20",
+     "real": 7685.0,
+     "abierto": 1,
+     "arima": 7735.39,
+     "arima_li": 6138.53,
+     "arima_ls": 9332.26,
+     "gru": 7809.83
+    },
+    {
+     "fecha": "2015-06-21",
+     "real": 12298.0,
+     "abierto": 1,
+     "arima": 12961.01,
+     "arima_li": 11199.07,
+     "arima_ls": 14722.95,
+     "gru": 12256.41
+    },
+    {
+     "fecha": "2015-06-22",
+     "real": 10381.0,
+     "abierto": 1,
+     "arima": 10328.39,
+     "arima_li": 8471.46,
+     "arima_ls": 12185.33,
+     "gru": 9635.48
+    },
+    {
+     "fecha": "2015-06-23",
+     "real": 9237.0,
+     "abierto": 1,
+     "arima": 9807.64,
+     "arima_li": 7894.17,
+     "arima_ls": 11721.1,
+     "gru": 9381.36
+    },
+    {
+     "fecha": "2015-06-24",
+     "real": 9095.0,
+     "abierto": 1,
+     "arima": 9681.87,
+     "arima_li": 7734.18,
+     "arima_ls": 11629.56,
+     "gru": 9276.59
+    },
+    {
+     "fecha": "2015-06-25",
+     "real": 9733.0,
+     "abierto": 1,
+     "arima": 9632.51,
+     "arima_li": 7663.9,
+     "arima_ls": 11601.12,
+     "gru": 9349.79
+    },
+    {
+     "fecha": "2015-06-26",
+     "real": 9710.0,
+     "abierto": 1,
+     "arima": 9894.4,
+     "arima_li": 7912.93,
+     "arima_ls": 11875.87,
+     "gru": 9300.51
+    },
+    {
+     "fecha": "2015-06-27",
+     "real": 7861.0,
+     "abierto": 1,
+     "arima": 7914.67,
+     "arima_li": 5889.52,
+     "arima_ls": 9939.81,
+     "gru": 7458.14
+    },
+    {
+     "fecha": "2015-06-28",
+     "real": 13460.0,
+     "abierto": 1,
+     "arima": 13056.78,
+     "arima_li": 11016.01,
+     "arima_ls": 15097.55,
+     "gru": 11881.61
+    },
+    {
+     "fecha": "2015-06-29",
+     "real": 11477.0,
+     "abierto": 1,
+     "arima": 11635.87,
+     "arima_li": 9585.48,
+     "arima_ls": 13686.27,
+     "gru": 10352.63
+    },
+    {
+     "fecha": "2015-06-30",
+     "real": 12792.0,
+     "abierto": 1,
+     "arima": 11074.94,
+     "arima_li": 9018.59,
+     "arima_ls": 13131.28,
+     "gru": 10279.75
+    },
+    {
+     "fecha": "2015-07-01",
+     "real": 12778.0,
+     "abierto": 1,
+     "arima": 10937.16,
+     "arima_li": 8877.14,
+     "arima_ls": 12997.18,
+     "gru": 10187.78
+    },
+    {
+     "fecha": "2015-07-02",
+     "real": 11993.0,
+     "abierto": 1,
+     "arima": 10909.72,
+     "arima_li": 8847.43,
+     "arima_ls": 12972.02,
+     "gru": 10072.87
+    },
+    {
+     "fecha": "2015-07-03",
+     "real": 12688.0,
+     "abierto": 1,
+     "arima": 11179.0,
+     "arima_li": 9115.29,
+     "arima_ls": 13242.71,
+     "gru": 9840.52
+    },
+    {
+     "fecha": "2015-07-04",
+     "real": 9749.0,
+     "abierto": 1,
+     "arima": 7965.79,
+     "arima_li": 5892.52,
+     "arima_ls": 10039.07,
+     "gru": 7184.65
+    },
+    {
+     "fecha": "2015-07-05",
+     "real": 14188.0,
+     "abierto": 1,
+     "arima": 13093.62,
+     "arima_li": 11017.32,
+     "arima_ls": 15169.92,
+     "gru": 11951.16
+    },
+    {
+     "fecha": "2015-07-06",
+     "real": 10156.0,
+     "abierto": 1,
+     "arima": 10459.25,
+     "arima_li": 8381.07,
+     "arima_ls": 12537.43,
+     "gru": 8878.6
+    },
+    {
+     "fecha": "2015-07-07",
+     "real": 9879.0,
+     "abierto": 1,
+     "arima": 9890.33,
+     "arima_li": 7810.99,
+     "arima_ls": 11969.67,
+     "gru": 8632.91
+    },
+    {
+     "fecha": "2015-07-08",
+     "real": 10061.0,
+     "abierto": 1,
+     "arima": 9747.75,
+     "arima_li": 7667.69,
+     "arima_ls": 11827.81,
+     "gru": 8569.4
+    },
+    {
+     "fecha": "2015-07-09",
+     "real": 9995.0,
+     "abierto": 1,
+     "arima": 9718.88,
+     "arima_li": 7638.38,
+     "arima_ls": 11799.39,
+     "gru": 8590.03
+    },
+    {
+     "fecha": "2015-07-10",
+     "real": 10480.0,
+     "abierto": 1,
+     "arima": 9986.29,
+     "arima_li": 7905.51,
+     "arima_ls": 12067.07,
+     "gru": 8796.32
+    },
+    {
+     "fecha": "2015-07-11",
+     "real": 8149.0,
+     "abierto": 1,
+     "arima": 7976.7,
+     "arima_li": 5889.94,
+     "arima_ls": 10063.47,
+     "gru": 7125.57
+    },
+    {
+     "fecha": "2015-07-12",
+     "real": 13229.0,
+     "abierto": 1,
+     "arima": 13101.96,
+     "arima_li": 11013.57,
+     "arima_ls": 15190.34,
+     "gru": 11810.38
+    },
+    {
+     "fecha": "2015-07-13",
+     "real": 11365.0,
+     "abierto": 1,
+     "arima": 11673.43,
+     "arima_li": 9584.04,
+     "arima_ls": 13762.82,
+     "gru": 9774.92
+    },
+    {
+     "fecha": "2015-07-14",
+     "real": 10791.0,
+     "abierto": 1,
+     "arima": 11102.98,
+     "arima_li": 9012.97,
+     "arima_ls": 13192.99,
+     "gru": 9574.5
+    },
+    {
+     "fecha": "2015-07-15",
+     "real": 11187.0,
+     "abierto": 1,
+     "arima": 10959.3,
+     "arima_li": 8868.91,
+     "arima_ls": 13049.7,
+     "gru": 9553.52
+    },
+    {
+     "fecha": "2015-07-16",
+     "real": 11836.0,
+     "abierto": 1,
+     "arima": 10929.75,
+     "arima_li": 8839.12,
+     "arima_ls": 13020.39,
+     "gru": 9491.11
+    },
+    {
+     "fecha": "2015-07-17",
+     "real": 10876.0,
+     "abierto": 1,
+     "arima": 11196.57,
+     "arima_li": 9105.78,
+     "arima_ls": 13287.35,
+     "gru": 9687.47
+    },
+    {
+     "fecha": "2015-07-18",
+     "real": 8398.0,
+     "abierto": 1,
+     "arima": 7978.85,
+     "arima_li": 5882.67,
+     "arima_ls": 10075.02,
+     "gru": 7044.8
+    },
+    {
+     "fecha": "2015-07-19",
+     "real": 13570.0,
+     "abierto": 1,
+     "arima": 13103.63,
+     "arima_li": 11006.06,
+     "arima_ls": 15201.19,
+     "gru": 11831.87
+    },
+    {
+     "fecha": "2015-07-20",
+     "real": 10428.0,
+     "abierto": 1,
+     "arima": 10467.28,
+     "arima_li": 8368.85,
+     "arima_ls": 12565.7,
+     "gru": 8729.71
+    },
+    {
+     "fecha": "2015-07-21",
+     "real": 10053.0,
+     "abierto": 1,
+     "arima": 9896.54,
+     "arima_li": 7797.58,
+     "arima_ls": 11995.5,
+     "gru": 8506.52
+    },
+    {
+     "fecha": "2015-07-22",
+     "real": 9991.0,
+     "abierto": 1,
+     "arima": 9752.64,
+     "arima_li": 7653.35,
+     "arima_ls": 11851.93,
+     "gru": 8481.93
+    },
+    {
+     "fecha": "2015-07-23",
+     "real": 9630.0,
+     "abierto": 1,
+     "arima": 9722.93,
+     "arima_li": 7623.43,
+     "arima_ls": 11822.42,
+     "gru": 8519.09
+    },
+    {
+     "fecha": "2015-07-24",
+     "real": 9948.0,
+     "abierto": 1,
+     "arima": 9989.61,
+     "arima_li": 7889.99,
+     "arima_ls": 12089.23,
+     "gru": 8769.32
+    },
+    {
+     "fecha": "2015-07-25",
+     "real": 7800.0,
+     "abierto": 1,
+     "arima": 7979.26,
+     "arima_li": 5874.37,
+     "arima_ls": 10084.14,
+     "gru": 7084.43
+    },
+    {
+     "fecha": "2015-07-26",
+     "real": 13307.0,
+     "abierto": 1,
+     "arima": 13103.95,
+     "arima_li": 10997.72,
+     "arima_ls": 15210.18,
+     "gru": 11763.89
+    },
+    {
+     "fecha": "2015-07-27",
+     "real": 10874.0,
+     "abierto": 1,
+     "arima": 10864.02,
+     "arima_li": 8756.96,
+     "arima_ls": 12971.09,
+     "gru": 9528.51
+    },
+    {
+     "fecha": "2015-07-28",
+     "real": 10225.0,
+     "abierto": 1,
+     "arima": 10293.23,
+     "arima_li": 8185.65,
+     "arima_ls": 12400.81,
+     "gru": 9204.95
+    },
+    {
+     "fecha": "2015-07-29",
+     "real": 10053.0,
+     "abierto": 1,
+     "arima": 10149.29,
+     "arima_li": 8041.39,
+     "arima_ls": 12257.19,
+     "gru": 9245.33
+    },
+    {
+     "fecha": "2015-07-30",
+     "real": 10324.0,
+     "abierto": 1,
+     "arima": 10119.55,
+     "arima_li": 8011.45,
+     "arima_ls": 12227.64,
+     "gru": 9302.28
+    },
+    {
+     "fecha": "2015-07-31",
+     "real": 11443.0,
+     "abierto": 1,
+     "arima": 10386.2,
+     "arima_li": 8277.98,
+     "arima_ls": 12494.43,
+     "gru": 9504.59
+    }
+   ]
+  },
+  "tienda_1044": {
+   "serie": "tienda_1044",
+   "nombre": "Tienda 1044 (tipo c)",
+   "test_inicio": "2015-06-20",
+   "test_fin": "2015-07-31",
+   "ARIMA": {
+    "RMSE": 1044.67,
+    "MAE": 792.26,
+    "MAPE": 13.44
+   },
+   "GRU": {
+    "RMSE": 1036.34,
+    "MAE": 749.65,
+    "MAPE": 12.33
+   },
+   "mejor": {
+    "RMSE": "GRU",
+    "MAE": "GRU",
+    "MAPE": "GRU"
+   },
+   "mejor_global": "GRU",
+   "test": [
+    {
+     "fecha": "2015-06-20",
+     "real": 6871.0,
+     "abierto": 1,
+     "arima": 6140.21,
+     "arima_li": 3988.5,
+     "arima_ls": 8291.91,
+     "gru": 5955.31
+    },
+    {
+     "fecha": "2015-06-21",
+     "real": 5899.0,
+     "abierto": 0,
+     "arima": 6642.18,
+     "arima_li": 4231.75,
+     "arima_ls": 9052.61,
+     "gru": 5719.07
+    },
+    {
+     "fecha": "2015-06-22",
+     "real": 4927.0,
+     "abierto": 1,
+     "arima": 6111.62,
+     "arima_li": 3639.57,
+     "arima_ls": 8583.68,
+     "gru": 5250.56
+    },
+    {
+     "fecha": "2015-06-23",
+     "real": 4382.0,
+     "abierto": 1,
+     "arima": 5021.81,
+     "arima_li": 2534.28,
+     "arima_ls": 7509.34,
+     "gru": 4973.34
+    },
+    {
+     "fecha": "2015-06-24",
+     "real": 4220.0,
+     "abierto": 1,
+     "arima": 4559.0,
+     "arima_li": 2067.55,
+     "arima_ls": 7050.46,
+     "gru": 5030.61
+    },
+    {
+     "fecha": "2015-06-25",
+     "real": 4325.0,
+     "abierto": 1,
+     "arima": 4154.22,
+     "arima_li": 1661.76,
+     "arima_ls": 6646.67,
+     "gru": 5267.57
+    },
+    {
+     "fecha": "2015-06-26",
+     "real": 4588.0,
+     "abierto": 1,
+     "arima": 4630.7,
+     "arima_li": 2137.99,
+     "arima_ls": 7123.41,
+     "gru": 5468.81
+    },
+    {
+     "fecha": "2015-06-27",
+     "real": 6086.0,
+     "abierto": 1,
+     "arima": 6440.98,
+     "arima_li": 3774.7,
+     "arima_ls": 9107.27,
+     "gru": 6482.56
+    },
+    {
+     "fecha": "2015-06-28",
+     "real": 8249.5,
+     "abierto": 0,
+     "arima": 7498.41,
+     "arima_li": 4789.66,
+     "arima_ls": 10207.17,
+     "gru": 7694.73
+    },
+    {
+     "fecha": "2015-06-29",
+     "real": 10413.0,
+     "abierto": 1,
+     "arima": 9146.29,
+     "arima_li": 6426.81,
+     "arima_ls": 11865.77,
+     "gru": 8633.15
+    },
+    {
+     "fecha": "2015-06-30",
+     "real": 11082.0,
+     "abierto": 1,
+     "arima": 7430.92,
+     "arima_li": 4708.71,
+     "arima_ls": 10153.13,
+     "gru": 6985.46
+    },
+    {
+     "fecha": "2015-07-01",
+     "real": 5699.0,
+     "abierto": 1,
+     "arima": 6991.87,
+     "arima_li": 4268.97,
+     "arima_ls": 9714.78,
+     "gru": 6481.23
+    },
+    {
+     "fecha": "2015-07-02",
+     "real": 5324.0,
+     "abierto": 1,
+     "arima": 6515.89,
+     "arima_li": 3792.81,
+     "arima_ls": 9238.97,
+     "gru": 6485.13
+    },
+    {
+     "fecha": "2015-07-03",
+     "real": 5642.0,
+     "abierto": 1,
+     "arima": 7104.68,
+     "arima_li": 4381.55,
+     "arima_ls": 9827.8,
+     "gru": 6407.81
+    },
+    {
+     "fecha": "2015-07-04",
+     "real": 5252.0,
+     "abierto": 1,
+     "arima": 6269.97,
+     "arima_li": 3095.35,
+     "arima_ls": 9444.59,
+     "gru": 5656.39
+    },
+    {
+     "fecha": "2015-07-05",
+     "real": 5290.5,
+     "abierto": 0,
+     "arima": 7011.58,
+     "arima_li": 3731.78,
+     "arima_ls": 10291.38,
+     "gru": 5301.41
+    },
+    {
+     "fecha": "2015-07-06",
+     "real": 5329.0,
+     "abierto": 1,
+     "arima": 6384.98,
+     "arima_li": 3078.9,
+     "arima_ls": 9691.05,
+     "gru": 5072.17
+    },
+    {
+     "fecha": "2015-07-07",
+     "real": 3751.0,
+     "abierto": 1,
+     "arima": 5025.28,
+     "arima_li": 1712.54,
+     "arima_ls": 8338.03,
+     "gru": 4472.22
+    },
+    {
+     "fecha": "2015-07-08",
+     "real": 4789.0,
+     "abierto": 1,
+     "arima": 4572.73,
+     "arima_li": 1258.29,
+     "arima_ls": 7887.17,
+     "gru": 4732.15
+    },
+    {
+     "fecha": "2015-07-09",
+     "real": 4839.0,
+     "abierto": 1,
+     "arima": 4137.23,
+     "arima_li": 822.35,
+     "arima_ls": 7452.1,
+     "gru": 5064.6
+    },
+    {
+     "fecha": "2015-07-10",
+     "real": 4427.0,
+     "abierto": 1,
+     "arima": 4662.16,
+     "arima_li": 1347.17,
+     "arima_ls": 7977.14,
+     "gru": 5204.81
+    },
+    {
+     "fecha": "2015-07-11",
+     "real": 5914.0,
+     "abierto": 1,
+     "arima": 6367.2,
+     "arima_li": 2827.18,
+     "arima_ls": 9907.23,
+     "gru": 6278.02
+    },
+    {
+     "fecha": "2015-07-12",
+     "real": 6900.5,
+     "abierto": 0,
+     "arima": 7288.38,
+     "arima_li": 3693.24,
+     "arima_ls": 10883.53,
+     "gru": 7548.7
+    },
+    {
+     "fecha": "2015-07-13",
+     "real": 7887.0,
+     "abierto": 1,
+     "arima": 8990.87,
+     "arima_li": 5381.8,
+     "arima_ls": 12599.93,
+     "gru": 9028.08
+    },
+    {
+     "fecha": "2015-07-14",
+     "real": 6687.0,
+     "abierto": 1,
+     "arima": 7428.94,
+     "arima_li": 3816.34,
+     "arima_ls": 11041.55,
+     "gru": 7768.85
+    },
+    {
+     "fecha": "2015-07-15",
+     "real": 6357.0,
+     "abierto": 1,
+     "arima": 6984.07,
+     "arima_li": 3370.57,
+     "arima_ls": 10597.58,
+     "gru": 7045.01
+    },
+    {
+     "fecha": "2015-07-16",
+     "real": 5404.0,
+     "abierto": 1,
+     "arima": 6525.55,
+     "arima_li": 2911.82,
+     "arima_ls": 10139.29,
+     "gru": 6822.57
+    },
+    {
+     "fecha": "2015-07-17",
+     "real": 5127.0,
+     "abierto": 1,
+     "arima": 7086.79,
+     "arima_li": 3473.0,
+     "arima_ls": 10700.59,
+     "gru": 6733.47
+    },
+    {
+     "fecha": "2015-07-18",
+     "real": 5357.0,
+     "abierto": 1,
+     "arima": 6311.92,
+     "arima_li": 2412.97,
+     "arima_ls": 10210.87,
+     "gru": 5823.19
+    },
+    {
+     "fecha": "2015-07-19",
+     "real": 5271.5,
+     "abierto": 0,
+     "arima": 7131.0,
+     "arima_li": 3162.63,
+     "arima_ls": 11099.37,
+     "gru": 5530.9
+    },
+    {
+     "fecha": "2015-07-20",
+     "real": 5186.0,
+     "abierto": 1,
+     "arima": 6473.34,
+     "arima_li": 2487.47,
+     "arima_ls": 10459.22,
+     "gru": 5238.09
+    },
+    {
+     "fecha": "2015-07-21",
+     "real": 4498.0,
+     "abierto": 1,
+     "arima": 5026.4,
+     "arima_li": 1036.08,
+     "arima_ls": 9016.73,
+     "gru": 4598.16
+    },
+    {
+     "fecha": "2015-07-22",
+     "real": 4031.0,
+     "abierto": 1,
+     "arima": 4577.16,
+     "arima_li": 585.7,
+     "arima_ls": 8568.62,
+     "gru": 4771.78
+    },
+    {
+     "fecha": "2015-07-23",
+     "real": 4598.0,
+     "abierto": 1,
+     "arima": 4131.73,
+     "arima_li": 139.98,
+     "arima_ls": 8123.48,
+     "gru": 5049.79
+    },
+    {
+     "fecha": "2015-07-24",
+     "real": 4740.0,
+     "abierto": 1,
+     "arima": 4672.33,
+     "arima_li": 680.51,
+     "arima_ls": 8664.15,
+     "gru": 5222.78
+    },
+    {
+     "fecha": "2015-07-25",
+     "real": 6277.0,
+     "abierto": 1,
+     "arima": 6343.35,
+     "arima_li": 2133.37,
+     "arima_ls": 10553.34,
+     "gru": 6304.84
+    },
+    {
+     "fecha": "2015-07-26",
+     "real": 8102.5,
+     "abierto": 0,
+     "arima": 7220.48,
+     "arima_li": 2956.67,
+     "arima_ls": 11484.3,
+     "gru": 7568.09
+    },
+    {
+     "fecha": "2015-07-27",
+     "real": 9928.0,
+     "abierto": 1,
+     "arima": 8940.62,
+     "arima_li": 4663.19,
+     "arima_ls": 13218.06,
+     "gru": 9043.22
+    },
+    {
+     "fecha": "2015-07-28",
+     "real": 7337.0,
+     "abierto": 1,
+     "arima": 7428.31,
+     "arima_li": 3147.41,
+     "arima_ls": 11709.2,
+     "gru": 7781.47
+    },
+    {
+     "fecha": "2015-07-29",
+     "real": 7071.0,
+     "abierto": 1,
+     "arima": 6981.55,
+     "arima_li": 2699.77,
+     "arima_ls": 11263.33,
+     "gru": 7052.94
+    },
+    {
+     "fecha": "2015-07-30",
+     "real": 7011.0,
+     "abierto": 1,
+     "arima": 6959.72,
+     "arima_li": 2677.72,
+     "arima_ls": 11241.73,
+     "gru": 7084.95
+    },
+    {
+     "fecha": "2015-07-31",
+     "real": 8060.0,
+     "abierto": 1,
+     "arima": 7512.05,
+     "arima_li": 3229.99,
+     "arima_ls": 11794.12,
+     "gru": 7004.81
+    }
+   ]
+  },
+  "tienda_352": {
+   "serie": "tienda_352",
+   "nombre": "Tienda 352 (tipo d)",
+   "test_inicio": "2015-06-20",
+   "test_fin": "2015-07-31",
+   "ARIMA": {
+    "RMSE": 731.63,
+    "MAE": 626.38,
+    "MAPE": 9.32
+   },
+   "GRU": {
+    "RMSE": 759.87,
+    "MAE": 653.33,
+    "MAPE": 9.57
+   },
+   "mejor": {
+    "RMSE": "ARIMA",
+    "MAE": "ARIMA",
+    "MAPE": "ARIMA"
+   },
+   "mejor_global": "ARIMA",
+   "test": [
+    {
+     "fecha": "2015-06-20",
+     "real": 6048.0,
+     "abierto": 1,
+     "arima": 6968.37,
+     "arima_li": 5137.82,
+     "arima_ls": 8798.91,
+     "gru": 6693.51
+    },
+    {
+     "fecha": "2015-06-21",
+     "real": 5799.0,
+     "abierto": 0,
+     "arima": 7107.78,
+     "arima_li": 4863.23,
+     "arima_ls": 9352.33,
+     "gru": 6152.53
+    },
+    {
+     "fecha": "2015-06-22",
+     "real": 5550.0,
+     "abierto": 1,
+     "arima": 6690.53,
+     "arima_li": 4264.13,
+     "arima_ls": 9116.93,
+     "gru": 5789.97
+    },
+    {
+     "fecha": "2015-06-23",
+     "real": 4553.0,
+     "abierto": 1,
+     "arima": 5445.92,
+     "arima_li": 2932.94,
+     "arima_ls": 7958.9,
+     "gru": 5280.21
+    },
+    {
+     "fecha": "2015-06-24",
+     "real": 4747.0,
+     "abierto": 1,
+     "arima": 5479.19,
+     "arima_li": 2923.73,
+     "arima_ls": 8034.65,
+     "gru": 5516.8
+    },
+    {
+     "fecha": "2015-06-25",
+     "real": 5631.0,
+     "abierto": 1,
+     "arima": 5627.64,
+     "arima_li": 3051.05,
+     "arima_ls": 8204.22,
+     "gru": 6087.34
+    },
+    {
+     "fecha": "2015-06-26",
+     "real": 6786.0,
+     "abierto": 1,
+     "arima": 6134.89,
+     "arima_li": 3547.74,
+     "arima_ls": 8722.05,
+     "gru": 6382.84
+    },
+    {
+     "fecha": "2015-06-27",
+     "real": 7085.0,
+     "abierto": 1,
+     "arima": 6738.11,
+     "arima_li": 3955.68,
+     "arima_ls": 9520.53,
+     "gru": 6673.08
+    },
+    {
+     "fecha": "2015-06-28",
+     "real": 8250.0,
+     "abierto": 0,
+     "arima": 7278.58,
+     "arima_li": 4402.84,
+     "arima_ls": 10154.31,
+     "gru": 7497.45
+    },
+    {
+     "fecha": "2015-06-29",
+     "real": 9415.0,
+     "abierto": 1,
+     "arima": 8115.74,
+     "arima_li": 5194.16,
+     "arima_ls": 11037.32,
+     "gru": 8194.24
+    },
+    {
+     "fecha": "2015-06-30",
+     "real": 8110.0,
+     "abierto": 1,
+     "arima": 6939.82,
+     "arima_li": 3995.43,
+     "arima_ls": 9884.22,
+     "gru": 6813.4
+    },
+    {
+     "fecha": "2015-07-01",
+     "real": 8369.0,
+     "abierto": 1,
+     "arima": 7001.53,
+     "arima_li": 4045.72,
+     "arima_ls": 9957.35,
+     "gru": 6494.9
+    },
+    {
+     "fecha": "2015-07-02",
+     "real": 7332.0,
+     "abierto": 1,
+     "arima": 6817.69,
+     "arima_li": 3856.14,
+     "arima_ls": 9779.23,
+     "gru": 6927.43
+    },
+    {
+     "fecha": "2015-07-03",
+     "real": 8183.0,
+     "abierto": 1,
+     "arima": 7276.95,
+     "arima_li": 4312.53,
+     "arima_ls": 10241.38,
+     "gru": 7259.99
+    },
+    {
+     "fecha": "2015-07-04",
+     "real": 6289.0,
+     "abierto": 1,
+     "arima": 6860.5,
+     "arima_li": 3552.76,
+     "arima_ls": 10168.24,
+     "gru": 6553.39
+    },
+    {
+     "fecha": "2015-07-05",
+     "real": 6517.0,
+     "abierto": 0,
+     "arima": 7187.92,
+     "arima_li": 3720.17,
+     "arima_ls": 10655.67,
+     "gru": 6059.24
+    },
+    {
+     "fecha": "2015-07-06",
+     "real": 6745.0,
+     "abierto": 1,
+     "arima": 6801.17,
+     "arima_li": 3255.59,
+     "arima_ls": 10346.75,
+     "gru": 5662.48
+    },
+    {
+     "fecha": "2015-07-07",
+     "real": 5392.0,
+     "abierto": 1,
+     "arima": 5588.75,
+     "arima_li": 2004.63,
+     "arima_ls": 9172.87,
+     "gru": 5118.36
+    },
+    {
+     "fecha": "2015-07-08",
+     "real": 5813.0,
+     "abierto": 1,
+     "arima": 5635.35,
+     "arima_li": 2031.97,
+     "arima_ls": 9238.72,
+     "gru": 5222.01
+    },
+    {
+     "fecha": "2015-07-09",
+     "real": 6129.0,
+     "abierto": 1,
+     "arima": 5628.0,
+     "arima_li": 2014.97,
+     "arima_ls": 9241.02,
+     "gru": 5864.08
+    },
+    {
+     "fecha": "2015-07-10",
+     "real": 7167.0,
+     "abierto": 1,
+     "arima": 6112.75,
+     "arima_li": 2494.87,
+     "arima_ls": 9730.63,
+     "gru": 6351.74
+    },
+    {
+     "fecha": "2015-07-11",
+     "real": 6302.0,
+     "abierto": 1,
+     "arima": 6795.5,
+     "arima_li": 2973.21,
+     "arima_ls": 10617.79,
+     "gru": 6504.56
+    },
+    {
+     "fecha": "2015-07-12",
+     "real": 7593.0,
+     "abierto": 0,
+     "arima": 7236.08,
+     "arima_li": 3314.9,
+     "arima_ls": 11157.26,
+     "gru": 7175.14
+    },
+    {
+     "fecha": "2015-07-13",
+     "real": 8884.0,
+     "abierto": 1,
+     "arima": 8057.02,
+     "arima_li": 4086.99,
+     "arima_ls": 12027.05,
+     "gru": 7921.62
+    },
+    {
+     "fecha": "2015-07-14",
+     "real": 7362.0,
+     "abierto": 1,
+     "arima": 6863.99,
+     "arima_li": 2869.59,
+     "arima_ls": 10858.4,
+     "gru": 6585.91
+    },
+    {
+     "fecha": "2015-07-15",
+     "real": 7447.0,
+     "abierto": 1,
+     "arima": 6918.62,
+     "arima_li": 2912.0,
+     "arima_ls": 10925.23,
+     "gru": 6277.24
+    },
+    {
+     "fecha": "2015-07-16",
+     "real": 7990.0,
+     "abierto": 1,
+     "arima": 6817.51,
+     "arima_li": 2804.76,
+     "arima_ls": 10830.27,
+     "gru": 6700.2
+    },
+    {
+     "fecha": "2015-07-17",
+     "real": 7809.0,
+     "abierto": 1,
+     "arima": 7288.73,
+     "arima_li": 3272.89,
+     "arima_ls": 11304.57,
+     "gru": 7024.98
+    },
+    {
+     "fecha": "2015-07-18",
+     "real": 6497.0,
+     "abierto": 1,
+     "arima": 6830.03,
+     "arima_li": 2590.87,
+     "arima_ls": 11069.19,
+     "gru": 6331.28
+    },
+    {
+     "fecha": "2015-07-19",
+     "real": 6257.5,
+     "abierto": 0,
+     "arima": 7210.5,
+     "arima_li": 2863.24,
+     "arima_ls": 11557.75,
+     "gru": 5816.29
+    },
+    {
+     "fecha": "2015-07-20",
+     "real": 6018.0,
+     "abierto": 1,
+     "arima": 6945.4,
+     "arima_li": 2544.73,
+     "arima_ls": 11346.08,
+     "gru": 5312.84
+    },
+    {
+     "fecha": "2015-07-21",
+     "real": 5579.0,
+     "abierto": 1,
+     "arima": 5742.08,
+     "arima_li": 1314.75,
+     "arima_ls": 10169.4,
+     "gru": 5074.31
+    },
+    {
+     "fecha": "2015-07-22",
+     "real": 5122.0,
+     "abierto": 1,
+     "arima": 5792.44,
+     "arima_li": 1351.76,
+     "arima_ls": 10233.12,
+     "gru": 5485.32
+    },
+    {
+     "fecha": "2015-07-23",
+     "real": 5656.0,
+     "abierto": 1,
+     "arima": 5741.13,
+     "arima_li": 1293.74,
+     "arima_ls": 10188.52,
+     "gru": 6021.53
+    },
+    {
+     "fecha": "2015-07-24",
+     "real": 5533.0,
+     "abierto": 1,
+     "arima": 6219.54,
+     "arima_li": 1768.77,
+     "arima_ls": 10670.3,
+     "gru": 6335.98
+    },
+    {
+     "fecha": "2015-07-25",
+     "real": 5840.0,
+     "abierto": 1,
+     "arima": 6811.69,
+     "arima_li": 2177.29,
+     "arima_ls": 11446.08,
+     "gru": 6398.99
+    },
+    {
+     "fecha": "2015-07-26",
+     "real": 7006.0,
+     "abierto": 0,
+     "arima": 7224.09,
+     "arima_li": 2499.94,
+     "arima_ls": 11948.23,
+     "gru": 7415.36
+    },
+    {
+     "fecha": "2015-07-27",
+     "real": 8172.0,
+     "abierto": 1,
+     "arima": 8153.49,
+     "arima_li": 3384.8,
+     "arima_ls": 12922.19,
+     "gru": 8605.41
+    },
+    {
+     "fecha": "2015-07-28",
+     "real": 6844.0,
+     "abierto": 1,
+     "arima": 6955.64,
+     "arima_li": 2164.67,
+     "arima_ls": 11746.6,
+     "gru": 7590.01
+    },
+    {
+     "fecha": "2015-07-29",
+     "real": 6584.0,
+     "abierto": 1,
+     "arima": 7008.26,
+     "arima_li": 2206.12,
+     "arima_ls": 11810.4,
+     "gru": 7296.2
+    },
+    {
+     "fecha": "2015-07-30",
+     "real": 7748.0,
+     "abierto": 1,
+     "arima": 6930.51,
+     "arima_li": 2122.75,
+     "arima_ls": 11738.26,
+     "gru": 7717.43
+    },
+    {
+     "fecha": "2015-07-31",
+     "real": 8204.0,
+     "abierto": 1,
+     "arima": 7405.09,
+     "arima_li": 2594.51,
+     "arima_ls": 12215.67,
+     "gru": 7921.88
+    }
+   ]
+  },
+  "tienda_262": {
+   "serie": "tienda_262",
+   "nombre": "Tienda 262 (tipo b, mayor volumen)",
+   "test_inicio": "2015-06-20",
+   "test_fin": "2015-07-31",
+   "ARIMA": {
+    "RMSE": 1341.66,
+    "MAE": 1033.75,
+    "MAPE": 4.7
+   },
+   "GRU": {
+    "RMSE": 1857.95,
+    "MAE": 1580.39,
+    "MAPE": 7.64
+   },
+   "mejor": {
+    "RMSE": "ARIMA",
+    "MAE": "ARIMA",
+    "MAPE": "ARIMA"
+   },
+   "mejor_global": "ARIMA",
+   "test": [
+    {
+     "fecha": "2015-06-20",
+     "real": 16392.0,
+     "abierto": 1,
+     "arima": 16993.98,
+     "arima_li": 13193.94,
+     "arima_ls": 20794.02,
+     "gru": 18953.28
+    },
+    {
+     "fecha": "2015-06-21",
+     "real": 28187.0,
+     "abierto": 1,
+     "arima": 28464.7,
+     "arima_li": 24339.8,
+     "arima_ls": 32589.6,
+     "gru": 29950.59
+    },
+    {
+     "fecha": "2015-06-22",
+     "real": 18027.0,
+     "abierto": 1,
+     "arima": 17772.68,
+     "arima_li": 13432.27,
+     "arima_ls": 22113.09,
+     "gru": 18935.12
+    },
+    {
+     "fecha": "2015-06-23",
+     "real": 15797.0,
+     "abierto": 1,
+     "arima": 16663.59,
+     "arima_li": 12176.73,
+     "arima_ls": 21150.45,
+     "gru": 17016.28
+    },
+    {
+     "fecha": "2015-06-24",
+     "real": 16249.0,
+     "abierto": 1,
+     "arima": 16301.95,
+     "arima_li": 11714.15,
+     "arima_ls": 20889.76,
+     "gru": 17278.72
+    },
+    {
+     "fecha": "2015-06-25",
+     "real": 15896.0,
+     "abierto": 1,
+     "arima": 17567.03,
+     "arima_li": 12909.02,
+     "arima_ls": 22225.05,
+     "gru": 18247.88
+    },
+    {
+     "fecha": "2015-06-26",
+     "real": 17936.0,
+     "abierto": 1,
+     "arima": 18956.16,
+     "arima_li": 14249.03,
+     "arima_ls": 23663.29,
+     "gru": 20347.99
+    },
+    {
+     "fecha": "2015-06-27",
+     "real": 17864.0,
+     "abierto": 1,
+     "arima": 17569.66,
+     "arima_li": 12773.95,
+     "arima_ls": 22365.37,
+     "gru": 19370.48
+    },
+    {
+     "fecha": "2015-06-28",
+     "real": 28817.0,
+     "abierto": 1,
+     "arima": 28949.3,
+     "arima_li": 24112.78,
+     "arima_ls": 33785.82,
+     "gru": 30764.48
+    },
+    {
+     "fecha": "2015-06-29",
+     "real": 20112.0,
+     "abierto": 1,
+     "arima": 21147.04,
+     "arima_li": 16281.82,
+     "arima_ls": 26012.27,
+     "gru": 22474.01
+    },
+    {
+     "fecha": "2015-06-30",
+     "real": 21554.0,
+     "abierto": 1,
+     "arima": 19973.41,
+     "arima_li": 15087.95,
+     "arima_ls": 24858.88,
+     "gru": 20488.63
+    },
+    {
+     "fecha": "2015-07-01",
+     "real": 21418.0,
+     "abierto": 1,
+     "arima": 19557.45,
+     "arima_li": 14657.7,
+     "arima_ls": 24457.2,
+     "gru": 20025.48
+    },
+    {
+     "fecha": "2015-07-02",
+     "real": 21564.0,
+     "abierto": 1,
+     "arima": 20776.8,
+     "arima_li": 15866.94,
+     "arima_ls": 25686.65,
+     "gru": 20921.74
+    },
+    {
+     "fecha": "2015-07-03",
+     "real": 23253.0,
+     "abierto": 1,
+     "arima": 22127.43,
+     "arima_li": 17210.43,
+     "arima_ls": 27044.43,
+     "gru": 22123.69
+    },
+    {
+     "fecha": "2015-07-04",
+     "real": 17090.0,
+     "abierto": 1,
+     "arima": 17742.08,
+     "arima_li": 12792.2,
+     "arima_ls": 22691.97,
+     "gru": 19242.35
+    },
+    {
+     "fecha": "2015-07-05",
+     "real": 30255.0,
+     "abierto": 1,
+     "arima": 29094.45,
+     "arima_li": 24133.3,
+     "arima_ls": 34055.6,
+     "gru": 30837.55
+    },
+    {
+     "fecha": "2015-07-06",
+     "real": 19894.0,
+     "abierto": 1,
+     "arima": 18302.79,
+     "arima_li": 13333.68,
+     "arima_ls": 23271.91,
+     "gru": 18673.47
+    },
+    {
+     "fecha": "2015-07-07",
+     "real": 17208.0,
+     "abierto": 1,
+     "arima": 17109.83,
+     "arima_li": 12135.08,
+     "arima_ls": 22084.59,
+     "gru": 16536.31
+    },
+    {
+     "fecha": "2015-07-08",
+     "real": 19142.0,
+     "abierto": 1,
+     "arima": 16677.6,
+     "arima_li": 11698.86,
+     "arima_ls": 21656.34,
+     "gru": 16221.4
+    },
+    {
+     "fecha": "2015-07-09",
+     "real": 18631.0,
+     "abierto": 1,
+     "arima": 17883.25,
+     "arima_li": 12901.68,
+     "arima_ls": 22864.81,
+     "gru": 17589.81
+    },
+    {
+     "fecha": "2015-07-10",
+     "real": 20519.0,
+     "abierto": 1,
+     "arima": 19222.35,
+     "arima_li": 14238.78,
+     "arima_ls": 24205.92,
+     "gru": 20654.46
+    },
+    {
+     "fecha": "2015-07-11",
+     "real": 17885.0,
+     "abierto": 1,
+     "arima": 17793.73,
+     "arima_li": 12788.47,
+     "arima_ls": 22798.99,
+     "gru": 19361.37
+    },
+    {
+     "fecha": "2015-07-12",
+     "real": 32271.0,
+     "abierto": 1,
+     "arima": 29137.92,
+     "arima_li": 24126.6,
+     "arima_ls": 34149.24,
+     "gru": 31756.84
+    },
+    {
+     "fecha": "2015-07-13",
+     "real": 22257.0,
+     "abierto": 1,
+     "arima": 21305.82,
+     "arima_li": 16290.21,
+     "arima_ls": 26321.43,
+     "gru": 21824.98
+    },
+    {
+     "fecha": "2015-07-14",
+     "real": 21455.0,
+     "abierto": 1,
+     "arima": 20107.07,
+     "arima_li": 15088.43,
+     "arima_ls": 25125.72,
+     "gru": 19702.11
+    },
+    {
+     "fecha": "2015-07-15",
+     "real": 20977.0,
+     "abierto": 1,
+     "arima": 19669.96,
+     "arima_li": 14649.16,
+     "arima_ls": 24690.76,
+     "gru": 18875.07
+    },
+    {
+     "fecha": "2015-07-16",
+     "real": 21595.0,
+     "abierto": 1,
+     "arima": 21486.4,
+     "arima_li": 16464.08,
+     "arima_ls": 26508.73,
+     "gru": 19958.55
+    },
+    {
+     "fecha": "2015-07-17",
+     "real": 22986.0,
+     "abierto": 1,
+     "arima": 22822.05,
+     "arima_li": 17798.65,
+     "arima_ls": 27845.46,
+     "gru": 20564.82
+    },
+    {
+     "fecha": "2015-07-18",
+     "real": 19042.0,
+     "abierto": 1,
+     "arima": 17809.2,
+     "arima_li": 12767.06,
+     "arima_ls": 22851.34,
+     "gru": 18136.49
+    },
+    {
+     "fecha": "2015-07-19",
+     "real": 31665.0,
+     "abierto": 1,
+     "arima": 29150.94,
+     "arima_li": 24104.0,
+     "arima_ls": 34197.88,
+     "gru": 30397.84
+    },
+    {
+     "fecha": "2015-07-20",
+     "real": 19169.0,
+     "abierto": 1,
+     "arima": 18965.25,
+     "arima_li": 13914.9,
+     "arima_ls": 24015.59,
+     "gru": 18207.91
+    },
+    {
+     "fecha": "2015-07-21",
+     "real": 17836.0,
+     "abierto": 1,
+     "arima": 17764.76,
+     "arima_li": 12712.01,
+     "arima_ls": 22817.51,
+     "gru": 16682.42
+    },
+    {
+     "fecha": "2015-07-22",
+     "real": 17663.0,
+     "abierto": 1,
+     "arima": 17326.19,
+     "arima_li": 12271.74,
+     "arima_ls": 22380.65,
+     "gru": 16413.78
+    },
+    {
+     "fecha": "2015-07-23",
+     "real": 17513.0,
+     "abierto": 1,
+     "arima": 18526.51,
+     "arima_li": 13470.84,
+     "arima_ls": 23582.17,
+     "gru": 17156.91
+    },
+    {
+     "fecha": "2015-07-24",
+     "real": 18985.0,
+     "abierto": 1,
+     "arima": 19861.12,
+     "arima_li": 14804.6,
+     "arima_ls": 24917.64,
+     "gru": 17893.2
+    },
+    {
+     "fecha": "2015-07-25",
+     "real": 17118.0,
+     "abierto": 1,
+     "arima": 17813.83,
+     "arima_li": 12739.49,
+     "arima_ls": 22888.17,
+     "gru": 18076.19
+    },
+    {
+     "fecha": "2015-07-26",
+     "real": 32547.0,
+     "abierto": 1,
+     "arima": 29154.84,
+     "arima_li": 24076.07,
+     "arima_ls": 34233.62,
+     "gru": 30272.13
+    },
+    {
+     "fecha": "2015-07-27",
+     "real": 22185.0,
+     "abierto": 1,
+     "arima": 21934.96,
+     "arima_li": 16853.04,
+     "arima_ls": 27016.88,
+     "gru": 21321.31
+    },
+    {
+     "fecha": "2015-07-28",
+     "real": 22442.0,
+     "abierto": 1,
+     "arima": 20733.96,
+     "arima_li": 15649.81,
+     "arima_ls": 25818.1,
+     "gru": 19299.87
+    },
+    {
+     "fecha": "2015-07-29",
+     "real": 21041.0,
+     "abierto": 1,
+     "arima": 20294.95,
+     "arima_li": 15209.23,
+     "arima_ls": 25380.67,
+     "gru": 18319.1
+    },
+    {
+     "fecha": "2015-07-30",
+     "real": 22253.0,
+     "abierto": 1,
+     "arima": 21494.9,
+     "arima_li": 16408.06,
+     "arima_ls": 26581.74,
+     "gru": 19738.49
+    },
+    {
+     "fecha": "2015-07-31",
+     "real": 25774.0,
+     "abierto": 1,
+     "arima": 22829.2,
+     "arima_li": 17741.57,
+     "arima_ls": 27916.83,
+     "gru": 20208.17
+    }
+   ]
+  }
+ },
+ "victorias_por_metrica": {
+  "ARIMA": 10,
+  "GRU": 8
+ },
+ "mape_promedio": {
+  "ARIMA": 13.27,
+  "GRU": 14.87
+ },
+ "mejor_modelo_general": "ARIMA"
+}

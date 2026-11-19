@@ -1,5 +1,5 @@
-// Definición de los escenarios de marketing, compartida por ARIMA (precalculado) y GRU (en vivo).
-// Debe coincidir con rossmann-backend/src/modelo_arima/exportar_arima.py.
+// Definición de los escenarios de marketing, compartida por ARIMA (Pyodide) y GRU (TypeScript).
+// El festivo se coloca a mitad del horizonte y Promo «lunes a viernes» activa la promo de lunes a viernes.
 
 import { partesFecha } from "./formato";
 
@@ -15,12 +15,7 @@ export const OPCIONES_PROMO: { valor: OpcionPromo; etiqueta: string }[] = [
 
 export const ESCENARIO_BASE = (horizonte: number): Escenario => ({ promo: "sin", school: false, festivo: false, horizonte });
 
-/** Clave del escenario precalculado de ARIMA. Sin festivo se recorta la trayectoria de 42 días. */
-export function claveArima(e: Escenario): string {
-  return `${e.promo}_${e.school ? "si" : "no"}_${e.festivo ? `h${e.horizonte}` : "no"}`;
-}
-
-/** Índice (0-based) del día festivo: la mitad del horizonte, igual que en el backend (h // 2). */
+/** Índice (0-based) del día festivo: la mitad del horizonte, (h // 2). */
 export const diaFestivo = (horizonte: number) => Math.floor(horizonte / 2);
 
 /** Valor de Promo para una fecha según la opción elegida. */

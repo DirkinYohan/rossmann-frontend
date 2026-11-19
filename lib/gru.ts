@@ -1,45 +1,55 @@
 "use client";
 
-// Inferencia del GRU en el navegador con onnxruntime-web.
+// Modelo GRU en el navegador: forward pass en TypeScript a partir del .keras (ver lib/keras.ts).
 // Replica EXACTAMENTE la construcción de ventanas de rossmann-backend/src/modelo_gru/entrenar_gru.py:
 //   paso k (0..29) para predecir el día t = [ventas_esc(t-30+k), exógenas(t-29+k)]
 //   exógenas = promo, school_holiday, festivo_a, festivo_b, festivo_c,
 //              sin/cos(2π·dow/7) (dow 0 = lunes), sin/cos(2π·(mes-1)/12)
 
-import type { InferenceSession } from "onnxruntime-web";
+import { cargarJson } from "./datos";
 import { diaFestivo, promoEnFecha, type Escenario } from "./escenarios";
 import { partesFecha, sumarDias } from "./formato";
-import type { GruConfig, PuntoPronostico } from "./tipos";
+import { cargarKeras, type ModeloKeras } from "./keras";
+import type { GruMeta, GruReferencia, PuntoPronostico } from "./tipos";
 
-type Ort = typeof import("onnxruntime-web");
+export type Validacion = { casos: number; maxDiferencia: number; tolerancia: number; ok: boolean };
+export type GruCargado = { modelo: ModeloKeras; validacion: Validacion };
 
-let ortPromesa: Promise<Ort> | null = null;
-const sesiones = new Map<string, Promise<InferenceSession>>();
+const cache = new Map<string, Promise<GruCargado>>();
 
-/** Carga onnxruntime-web solo en el navegador. Los .wasm se sirven desde /ort (copiados en postinstall). */
-function cargarOrt(): Promise<Ort> {
-  if (!ortPromesa) {
-    ortPromesa = import("onnxruntime-web/wasm").then((ort) => {
-      ort.env.wasm.wasmPaths = "/ort/";
-      ort.env.wasm.numThreads = 1; // sin hilos: no requiere cabeceras COOP/COEP
-      return ort as unknown as Ort;
-    });
+/**
+ * Carga el .keras y lo VALIDA contra gru_referencia_<serie>.json: ejecuta las 5 ventanas de
+ * referencia y exige una diferencia < 1e-4 con las predicciones de Python. Si falla, lanza
+ * un error que la interfaz muestra en pantalla.
+ */
+export function cargarGru(meta: GruMeta): Promise<GruCargado> {
+  if (!cache.has(meta.serie)) {
+    const p = (async () => {
+      const [modelo, ref] = await Promise.all([
+        cargarKeras(`/models/${meta.archivo}`),
+        cargarJson<GruReferencia>(`/data/gru_referencia_${meta.serie}.json`),
+      ]);
+      let maxDiferencia = 0;
+      for (const caso of ref.casos) {
+        const salida = modelo.predecir(caso.entrada)[0];
+        maxDiferencia = Math.max(maxDiferencia, Math.abs(salida - caso.salida));
+      }
+      const validacion = { casos: ref.casos.length, maxDiferencia, tolerancia: ref.tolerancia, ok: maxDiferencia < ref.tolerancia };
+      if (!validacion.ok) {
+        throw new Error(
+          `Validación del GRU fallida para ${meta.nombre}: la diferencia con Python es ${maxDiferencia.toExponential(2)} ` +
+            `(tolerancia ${ref.tolerancia}). El forward pass en TypeScript no reproduce el modelo entrenado.`,
+        );
+      }
+      return { modelo, validacion };
+    })();
+    p.catch(() => cache.delete(meta.serie));
+    cache.set(meta.serie, p);
   }
-  return ortPromesa;
+  return cache.get(meta.serie)!;
 }
 
-function sesion(archivo: string): Promise<InferenceSession> {
-  if (!sesiones.has(archivo)) {
-    const p = cargarOrt().then((ort) =>
-      ort.InferenceSession.create(`/models/${archivo}`, { executionProviders: ["wasm"] }),
-    );
-    p.catch(() => sesiones.delete(archivo));
-    sesiones.set(archivo, p);
-  }
-  return sesiones.get(archivo)!;
-}
-
-type Exogenas = [number, number, number, number, number, number, number, number, number];
+type Exogenas = number[];
 
 function exogenas(iso: string, promo: number, school: number, fa: number, fb: number, fc: number): Exogenas {
   const { dow, mes } = partesFecha(iso);
@@ -54,41 +64,25 @@ function exogenas(iso: string, promo: number, school: number, fa: number, fb: nu
  * Pronóstico recursivo del escenario: cada predicción se agrega a la historia y alimenta
  * la siguiente ventana, igual que en la evaluación del backend.
  */
-export async function pronosticarGru(config: GruConfig, idSerie: string, esc: Escenario): Promise<PuntoPronostico[]> {
-  const cfg = config.series[idSerie];
-  const ventana = config.ventana;
-  const nF = config.features.length;
-  const s = await sesion(cfg.onnx);
-  const ort = await cargarOrt();
-
-  const hist = cfg.ultimos_dias.slice(-ventana);
-  const ultimaFecha = hist[hist.length - 1].fecha;
-  const fechasFut = Array.from({ length: esc.horizonte }, (_, i) => sumarDias(ultimaFecha, i + 1));
+export async function pronosticarGru(meta: GruMeta, esc: Escenario): Promise<PuntoPronostico[]> {
+  const { modelo } = await cargarGru(meta);
+  const ventana = meta.ventana;
+  const hist = meta.ultimos_dias.slice(-ventana);
+  const fechasFut = Array.from({ length: esc.horizonte }, (_, i) => sumarDias(meta.ultima_fecha, i + 1));
   const iFestivo = esc.festivo ? diaFestivo(esc.horizonte) : -1;
 
   // Exógenas de toda la línea de tiempo: 30 días históricos + horizonte del escenario.
   const exog: Exogenas[] = [
     ...hist.map((d) => exogenas(d.fecha, d.promo, d.school_holiday, d.festivo_a, d.festivo_b, d.festivo_c)),
-    ...fechasFut.map((f, i) =>
-      exogenas(f, promoEnFecha(esc.promo, f), esc.school ? 1 : 0, i === iFestivo ? 1 : 0, 0, 0),
-    ),
+    ...fechasFut.map((f, i) => exogenas(f, promoEnFecha(esc.promo, f), esc.school ? 1 : 0, i === iFestivo ? 1 : 0, 0, 0)),
   ];
   const ventas: number[] = hist.map((d) => d.ventas_esc);
-  const rango = cfg.escalador_max - cfg.escalador_min;
+  const rango = meta.escalador_max - meta.escalador_min;
 
   for (let t = ventana; t < ventana + esc.horizonte; t++) {
-    const x = new Float32Array(ventana * nF);
-    for (let k = 0; k < ventana; k++) {
-      x[k * nF] = ventas[t - ventana + k];
-      x.set(exog[t - ventana + 1 + k], k * nF + 1);
-    }
-    const tensor = new ort.Tensor("float32", x, [1, ventana, nF]);
-    const salida = await s.run({ [config.entrada]: tensor });
-    ventas.push(Number((salida[config.salida].data as Float32Array)[0]));
+    const x: number[][] = [];
+    for (let k = 0; k < ventana; k++) x.push([ventas[t - ventana + k], ...exog[t - ventana + 1 + k]]);
+    ventas.push(modelo.predecir(x)[0]);
   }
-
-  return fechasFut.map((fecha, i) => ({
-    fecha,
-    pred: Math.max(0, ventas[ventana + i] * rango + cfg.escalador_min),
-  }));
+  return fechasFut.map((fecha, i) => ({ fecha, pred: Math.max(0, ventas[ventana + i] * rango + meta.escalador_min) }));
 }
