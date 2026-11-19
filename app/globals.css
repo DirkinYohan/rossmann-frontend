@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+/* Paleta del proyecto: neutros fríos + un color fijo por modelo en todas las gráficas. */
+:root {
+  --background: #f6f7f9;
+  --foreground: #14181f;
+  --superficie: #ffffff;
+  --borde: #e3e6eb;
+  --tenue: #5f6b7a;
+  --real: #14181f;
+  --arima: #2f5bd3;
+  --gru: #d9661f;
+  --base: #9aa4b2;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-superficie: var(--superficie);
+  --color-borde: var(--borde);
+  --color-tenue: var(--tenue);
+  --color-arima: var(--arima);
+  --color-gru: var(--gru);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Recharts: quitar el contorno de foco del SVG al hacer clic */
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}

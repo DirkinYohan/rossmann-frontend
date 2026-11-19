@@ -1,0 +1,56 @@
+[
+  {
+    "id": "total",
+    "store": null,
+    "store_type": null,
+    "criterio": "Suma diaria de ventas de todas las tiendas abiertas",
+    "nombre": "Total cadena",
+    "dias": 942,
+    "dias_interpolados": 0
+  },
+  {
+    "id": "tienda_770",
+    "store": 770,
+    "store_type": "a",
+    "criterio": "Representativa del tipo a (venta media más cercana a la mediana del tipo)",
+    "nombre": "Tienda 770 (tipo a)",
+    "dias": 942,
+    "dias_interpolados": 163
+  },
+  {
+    "id": "tienda_1097",
+    "store": 1097,
+    "store_type": "b",
+    "criterio": "Representativa del tipo b (venta media más cercana a la mediana del tipo)",
+    "nombre": "Tienda 1097 (tipo b)",
+    "dias": 942,
+    "dias_interpolados": 0
+  },
+  {
+    "id": "tienda_1044",
+    "store": 1044,
+    "store_type": "c",
+    "criterio": "Representativa del tipo c (venta media más cercana a la mediana del tipo)",
+    "nombre": "Tienda 1044 (tipo c)",
+    "dias": 942,
+    "dias_interpolados": 165
+  },
+  {
+    "id": "tienda_352",
+    "store": 352,
+    "store_type": "d",
+    "criterio": "Representativa del tipo d (venta media más cercana a la mediana del tipo)",
+    "nombre": "Tienda 352 (tipo d)",
+    "dias": 942,
+    "dias_interpolados": 158
+  },
+  {
+    "id": "tienda_262",
+    "store": 262,
+    "store_type": "b",
+    "criterio": "Mayor volumen total de ventas de la cadena",
+    "nombre": "Tienda 262 (tipo b, mayor volumen)",
+    "dias": 942,
+    "dias_interpolados": 0
+  }
+]
