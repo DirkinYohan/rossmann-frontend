@@ -73,7 +73,7 @@ export function VerificacionModelos({ serie }: { serie: string }) {
     <ul className="divide-y divide-borde">
       {fila(
         "ARIMA · .joblib ejecutado con Pyodide",
-        "Pronóstico de los 42 días de test en el navegador frente al calculado en Python con el mismo archivo.",
+        "Pronóstico de 42 días (desde el último dato, promo de lunes a viernes) en el navegador frente al calculado en Python con el mismo archivo.",
         arima.error ? "error" : arima.datos ? (arima.datos.ok ? "ok" : "error") : "cargando",
         arima.error
           ? arima.error

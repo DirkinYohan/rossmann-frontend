@@ -118,3 +118,63 @@ export function Leyenda({ items }: { items: { color: string; texto: string; tipo
     </ul>
   );
 }
+
+/** Icono de ayuda con una explicación en lenguaje simple (visible al pasar el ratón o con el teclado). */
+export function Ayuda({ texto }: { texto: string }) {
+  return (
+    <span className="group relative inline-flex align-middle">
+      <span
+        tabIndex={0}
+        aria-label={texto}
+        className="grid h-4 w-4 cursor-help place-items-center rounded-full border border-borde bg-superficie text-[10px] font-semibold normal-case text-tenue focus:outline-none focus:ring-2 focus:ring-arima/40"
+      >
+        ?
+      </span>
+      <span
+        role="tooltip"
+        className="pointer-events-none absolute left-1/2 top-full z-30 mt-1.5 hidden w-60 -translate-x-1/2 rounded-lg border border-borde bg-superficie px-3 py-2 text-left text-xs font-normal normal-case leading-snug tracking-normal text-foreground shadow-lg group-hover:block group-focus-within:block"
+      >
+        {texto}
+      </span>
+    </span>
+  );
+}
+
+/** Interruptor accesible (role="switch"). */
+export function Interruptor({
+  activo,
+  onChange,
+  etiqueta,
+  deshabilitado = false,
+}: {
+  activo: boolean;
+  onChange: (v: boolean) => void;
+  etiqueta: string;
+  deshabilitado?: boolean;
+}) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={activo}
+      aria-label={etiqueta}
+      disabled={deshabilitado}
+      onClick={() => onChange(!activo)}
+      className={`relative inline-flex h-5 w-9 shrink-0 items-center rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-arima/40 disabled:cursor-not-allowed disabled:opacity-40 ${
+        activo ? "bg-arima" : "bg-borde"
+      }`}
+    >
+      <span className={`inline-block h-4 w-4 rounded-full bg-white shadow transition-transform ${activo ? "translate-x-[18px]" : "translate-x-0.5"}`} />
+    </button>
+  );
+}
+
+/** Mensaje de error de un campo, en rojo y junto a él. */
+export function ErrorCampo({ mensaje, id }: { mensaje: string | null | undefined; id?: string }) {
+  if (!mensaje) return null;
+  return (
+    <p id={id} className="mt-1 text-xs font-medium text-red-700" role="alert">
+      {mensaje}
+    </p>
+  );
+}

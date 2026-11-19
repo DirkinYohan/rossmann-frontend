@@ -7,15 +7,17 @@ export function SelectorSerie({
   series,
   valor,
   onChange,
+  etiqueta = "Serie",
 }: {
   series: InfoSerie[];
   valor: string;
   onChange: (id: string) => void;
+  etiqueta?: string;
 }) {
   const actual = series.find((s) => s.id === valor);
   return (
     <label className="block min-w-0">
-      <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-tenue">Serie</span>
+      <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-tenue">{etiqueta}</span>
       <select
         value={valor}
         onChange={(e) => onChange(e.target.value)}

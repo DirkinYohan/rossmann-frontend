@@ -45,7 +45,16 @@ export type MetricasJson = {
   mejor_modelo_general: Modelo;
 };
 
+/** Ficha informativa de la tienda (vacía en "Total cadena"). No entra en los modelos. */
+export type InfoTienda = {
+  StoreType?: string | null;
+  Assortment?: string | null;
+  CompetitionDistance?: number | null;
+  Promo2?: number | null;
+};
+
 // ---------- arima_meta_<serie>.json ----------
+// El .joblib es el modelo REENTRENADO con la serie completa: pronostica desde ultima_fecha + 1.
 export type ArimaMeta = {
   serie: string;
   nombre: string;
@@ -54,25 +63,36 @@ export type ArimaMeta = {
   orden_estacional: number[];
   exogenas: string[];
   frecuencia: string;
+  ultima_fecha: string;
   ultima_fecha_entrenamiento: string;
+  /** Días que guarda el .joblib compacto (= días del historial que reemplaza results.apply). */
+  dias_ancla: number;
+  fecha_ancla: string;
   aic: number;
   coeficientes_exogenas: Record<string, number>;
+  mape_test: number;
+  metricas_test: Metricas;
+  periodo_test: { inicio: string; fin: string };
+  info_tienda: InfoTienda;
   versiones: Record<string, string>;
-  test: { fechas: string[]; ventas: number[]; exog: number[][] };
-  referencia_test: { media: number[]; li: number[]; ls: number[] };
+  /** Pronóstico de 42 días calculado en Python con el mismo .joblib (para verificar Pyodide). */
+  referencia: { descripcion: string; fechas: string[]; exog: number[][]; media: number[]; li: number[]; ls: number[] };
 };
 
 // ---------- gru_meta_<serie>.json y gru_referencia_<serie>.json ----------
-export type DiaHistorico = {
+/** Exógenas de un día tal como las usa el GRU (StateHoliday en one-hot a/b/c). */
+export type ExogDia = {
   fecha: string;
-  ventas: number;
-  ventas_esc: number;
   promo: number;
   school_holiday: number;
   festivo_a: number;
   festivo_b: number;
   festivo_c: number;
 };
+/** Día de la ventana inicial del GRU: exógenas + ventas escaladas. */
+export type DiaVentana = ExogDia & { ventas_esc: number };
+/** Día de ventana_gru en gru_meta_<serie>.json (ventas en días cerrados = valor interpolado). */
+export type DiaHistorico = DiaVentana & { ventas: number; abierto: number; state_holiday: string };
 export type GruMeta = {
   serie: string;
   nombre: string;
@@ -83,7 +103,11 @@ export type GruMeta = {
   escalador_max: number;
   capas: Record<string, string | number | boolean>[];
   ultima_fecha: string;
-  ultimos_dias: DiaHistorico[];
+  mape_test: number;
+  metricas_test: Metricas;
+  periodo_test: { inicio: string; fin: string };
+  info_tienda: InfoTienda;
+  ventana_gru: DiaHistorico[];
 };
 export type GruReferencia = {
   serie: string;

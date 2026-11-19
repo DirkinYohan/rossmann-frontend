@@ -4,7 +4,7 @@
 //   ARIMA → Pyodide + .joblib (lib/arima.ts)       GRU → forward pass TypeScript + .keras (lib/gru.ts)
 
 import { useEffect, useState } from "react";
-import { pronosticarArima, pronosticarTestArima } from "./arima";
+import { pronosticarArima, pronosticarReferenciaArima } from "./arima";
 import { cargarJson, RUTAS } from "./datos";
 import type { Escenario } from "./escenarios";
 import { cargarGru, pronosticarGru, type Validacion } from "./gru";
@@ -49,14 +49,14 @@ export function usePronostico(modelo: Modelo, serie: string, esc: Escenario | nu
 export type VerificacionArima = { maxDifRelativa: number; maxDifAbsoluta: number; pasos: number; ok: boolean };
 
 /**
- * Comprueba que ARIMA ejecutado en Pyodide reproduce la predicción de test calculada en
- * Python con el mismo .joblib (arima_meta_<serie>.json → referencia_test).
+ * Comprueba que ARIMA ejecutado en Pyodide reproduce el pronóstico de referencia calculado
+ * en Python con el mismo .joblib (arima_meta_<serie>.json → referencia).
  */
 export function useVerificacionArima(serie: string, activo: boolean) {
   return useTarea<VerificacionArima>(activo ? `verif-arima|${serie}` : null, async () => {
     const meta = await metaArima(serie);
-    const r = await pronosticarTestArima(meta);
-    const ref = meta.referencia_test;
+    const r = await pronosticarReferenciaArima(meta);
+    const ref = meta.referencia;
     let maxAbs = 0;
     let maxRel = 0;
     for (const [i, v] of ref.media.entries()) {

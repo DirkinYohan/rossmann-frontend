@@ -10,7 +10,7 @@ import { cargarJson } from "./datos";
 import { diaFestivo, promoEnFecha, type Escenario } from "./escenarios";
 import { partesFecha, sumarDias } from "./formato";
 import { cargarKeras, type ModeloKeras } from "./keras";
-import type { GruMeta, GruReferencia, PuntoPronostico } from "./tipos";
+import type { DiaVentana, ExogDia, GruMeta, GruReferencia, PuntoPronostico } from "./tipos";
 
 export type Validacion = { casos: number; maxDiferencia: number; tolerancia: number; ok: boolean };
 export type GruCargado = { modelo: ModeloKeras; validacion: Validacion };
@@ -51,38 +51,47 @@ export function cargarGru(meta: GruMeta): Promise<GruCargado> {
 
 type Exogenas = number[];
 
-function exogenas(iso: string, promo: number, school: number, fa: number, fb: number, fc: number): Exogenas {
-  const { dow, mes } = partesFecha(iso);
+/** Vector de exógenas de un día en el orden de FEATURES[1:] del backend. */
+function exogenas(d: ExogDia): Exogenas {
+  const { dow, mes } = partesFecha(d.fecha);
   return [
-    promo, school, fa, fb, fc,
+    d.promo, d.school_holiday, d.festivo_a, d.festivo_b, d.festivo_c,
     Math.sin((2 * Math.PI * dow) / 7), Math.cos((2 * Math.PI * dow) / 7),
     Math.sin((2 * Math.PI * (mes - 1)) / 12), Math.cos((2 * Math.PI * (mes - 1)) / 12),
   ];
 }
 
 /**
- * Pronóstico recursivo del escenario: cada predicción se agrega a la historia y alimenta
- * la siguiente ventana, igual que en la evaluación del backend.
+ * Pronóstico recursivo genérico: parte de una ventana inicial (`historia`, ventas ya
+ * escaladas con el MinMax de los metadatos) y predice un día por cada elemento de `futuro`.
+ * Cada predicción se agrega a la historia y alimenta la siguiente ventana, igual que en la
+ * evaluación del backend. Devuelve las ventas desescaladas y recortadas a ≥ 0.
  */
-export async function pronosticarGru(meta: GruMeta, esc: Escenario): Promise<PuntoPronostico[]> {
+export async function pronosticarGruDesde(meta: GruMeta, historia: DiaVentana[], futuro: ExogDia[]): Promise<PuntoPronostico[]> {
   const { modelo } = await cargarGru(meta);
   const ventana = meta.ventana;
-  const hist = meta.ultimos_dias.slice(-ventana);
-  const fechasFut = Array.from({ length: esc.horizonte }, (_, i) => sumarDias(meta.ultima_fecha, i + 1));
-  const iFestivo = esc.festivo ? diaFestivo(esc.horizonte) : -1;
+  const hist = historia.slice(-ventana);
+  if (hist.length !== ventana) throw new Error(`El GRU necesita exactamente ${ventana} días de historial (llegaron ${hist.length}).`);
 
-  // Exógenas de toda la línea de tiempo: 30 días históricos + horizonte del escenario.
-  const exog: Exogenas[] = [
-    ...hist.map((d) => exogenas(d.fecha, d.promo, d.school_holiday, d.festivo_a, d.festivo_b, d.festivo_c)),
-    ...fechasFut.map((f, i) => exogenas(f, promoEnFecha(esc.promo, f), esc.school ? 1 : 0, i === iFestivo ? 1 : 0, 0, 0)),
-  ];
+  // Exógenas de toda la línea de tiempo: 30 días de historia + horizonte.
+  const exog: Exogenas[] = [...hist, ...futuro].map(exogenas);
   const ventas: number[] = hist.map((d) => d.ventas_esc);
   const rango = meta.escalador_max - meta.escalador_min;
 
-  for (let t = ventana; t < ventana + esc.horizonte; t++) {
+  for (let t = ventana; t < ventana + futuro.length; t++) {
     const x: number[][] = [];
     for (let k = 0; k < ventana; k++) x.push([ventas[t - ventana + k], ...exog[t - ventana + 1 + k]]);
     ventas.push(modelo.predecir(x)[0]);
   }
-  return fechasFut.map((fecha, i) => ({ fecha, pred: Math.max(0, ventas[ventana + i] * rango + meta.escalador_min) }));
+  return futuro.map((d, i) => ({ fecha: d.fecha, pred: Math.max(0, ventas[ventana + i] * rango + meta.escalador_min) }));
+}
+
+/** Pronóstico de un escenario de /escenarios desde el último dato del dataset (ventana_gru). */
+export function pronosticarGru(meta: GruMeta, esc: Escenario): Promise<PuntoPronostico[]> {
+  const iFestivo = esc.festivo ? diaFestivo(esc.horizonte) : -1;
+  const futuro: ExogDia[] = Array.from({ length: esc.horizonte }, (_, i) => {
+    const fecha = sumarDias(meta.ultima_fecha, i + 1);
+    return { fecha, promo: promoEnFecha(esc.promo, fecha), school_holiday: esc.school ? 1 : 0, festivo_a: i === iFestivo ? 1 : 0, festivo_b: 0, festivo_c: 0 };
+  });
+  return pronosticarGruDesde(meta, meta.ventana_gru, futuro);
 }

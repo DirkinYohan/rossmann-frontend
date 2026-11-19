@@ -7,9 +7,15 @@
 // navegador. El backend entrena con EXACTAMENTE esas versiones (rossmann-backend/requirements.txt);
 // si cambias PYODIDE_VERSION, reentrena el backend con las versiones de su pyodide-lock.json.
 //
+// El .joblib es el modelo REENTRENADO con la serie completa: su pronóstico empieza el día
+// siguiente al último dato del dataset (ultima_fecha + 1).
+//
 // Protocolo de mensajes:
 //   → { id, tipo: "iniciar" }
-//   → { id, tipo: "pronosticar", serie, urlModelo, pasos, exog, extension?: { y, exog } }
+//   → { id, tipo: "precargar", serie, urlModelo }                 (descarga y carga el .joblib)
+//   → { id, tipo: "pronosticar", serie, urlModelo, pasos, exog }
+//   → { id, tipo: "aplicar_y_predecir", serie, urlModelo, pasos, exog,
+//        historial: { fecha_inicio, y (null = día cerrado), exog } }
 //   ← { tipo: "estado", etapa, mensaje }            (progreso de la carga)
 //   ← { id, tipo: "ok", resultado }  |  { id, tipo: "error", mensaje }
 
@@ -29,22 +35,43 @@ def cargar_modelo(serie, ruta):
         _modelos[serie] = {"base": joblib.load(ruta)}
     return int(_modelos[serie]["base"].nobs)
 
-def pronosticar(serie, pasos, exog, ext_y=None, ext_exog=None):
-    """
-    forecast(steps, exog) + get_forecast(...).conf_int() con las exógenas del escenario.
-    Si se pasa una extensión (los 42 días de test), primero se lleva el estado del modelo
-    hasta el último dato real con extend(): conserva los parámetros, no reentrena.
-    """
-    m = _modelos[serie]
-    res = m["base"]
-    if ext_y is not None:
-        if "extendido" not in m:
-            m["extendido"] = res.extend(np.asarray(ext_y, dtype=float), exog=np.asarray(ext_exog, dtype=float))
-        res = m["extendido"]
-    X = np.asarray(exog, dtype=float)
-    media = np.asarray(res.forecast(int(pasos), exog=X))
-    ic = np.asarray(res.get_forecast(int(pasos), exog=X).conf_int(alpha=0.05))
+def _pronostico(res, pasos, exog):
+    pron = res.get_forecast(int(pasos), exog=np.asarray(exog, dtype=float))
+    media = np.asarray(pron.predicted_mean)
+    ic = np.asarray(pron.conf_int(alpha=0.05))
     return {"media": media.tolist(), "li": ic[:, 0].tolist(), "ls": ic[:, 1].tolist()}
+
+def pronosticar(serie, pasos, exog):
+    """get_forecast(steps, exog) con IC 95 % desde el último dato del dataset."""
+    return _pronostico(_modelos[serie]["base"], pasos, exog)
+
+def aplicar_y_predecir(serie, fecha_inicio, y_hist, exog_hist, pasos, exog_fut):
+    """
+    Historial propio del usuario: results.apply(endog, exog) sobre el índice de fechas de
+    esos días. Conserva los parámetros entrenados (no reentrena) y vuelve a filtrar con los
+    datos del usuario, de modo que el estado del modelo (el punto de partida) pasa a ser el
+    de su historial.
+
+    El .joblib compacto contiene exactamente esos 30 días (ultima_fecha − 29 … ultima_fecha)
+    e inicia su filtro de Kalman en el estado que el modelo completo tenía en el primero de
+    ellos. Con copy_initialization=True el filtro parte de ese estado entrenado y solo
+    sustituye las observaciones: con las ventas del dataset se obtiene exactamente el
+    pronóstico base. (Una inicialización difusa con solo 30 datos no basta para estimar los
+    hasta 18 estados de un SARIMAX estacional y produce pronósticos absurdos.)
+
+    Los días cerrados llegan como None → NaN: el filtro de Kalman los trata como
+    observaciones faltantes, no como venta 0.
+    Después pronostica con get_forecast(steps=N, exog=exog_futuro).
+    """
+    base = _modelos[serie]["base"]
+    y = np.asarray([np.nan if v is None else float(v) for v in y_hist], dtype=float)
+    if len(y) != int(base.nobs):
+        raise ValueError(f"El historial debe tener {int(base.nobs)} días (llegaron {len(y)})")
+    indice = pandas.date_range(fecha_inicio, periods=len(y), freq="D")
+    endog = pandas.Series(y, index=indice)
+    X = pandas.DataFrame(np.asarray(exog_hist, dtype=float), index=indice)
+    res = base.apply(endog=endog, exog=X, copy_initialization=True)
+    return _pronostico(res, pasos, exog_fut)
 
 def versiones():
     return {"python": sys.version.split()[0], "numpy": np.__version__, "scipy": scipy.__version__,
@@ -94,11 +121,18 @@ async function asegurarModelo(py, serie, urlModelo) {
 async function atender(msg) {
   const { py, versiones } = await obtenerPyodide();
   if (msg.tipo === "iniciar") return { versiones };
-  if (msg.tipo === "pronosticar") {
+  if (msg.tipo === "precargar") {
     await asegurarModelo(py, msg.serie, msg.urlModelo);
-    const fn = py.globals.get("pronosticar");
-    const args = [msg.serie, msg.pasos, py.toPy(msg.exog)];
-    if (msg.extension) args.push(py.toPy(msg.extension.y), py.toPy(msg.extension.exog));
+    estado("listo", "Python listo");
+    return { cargado: true };
+  }
+  if (msg.tipo === "pronosticar" || msg.tipo === "aplicar_y_predecir") {
+    await asegurarModelo(py, msg.serie, msg.urlModelo);
+    const fn = py.globals.get(msg.tipo);
+    const args =
+      msg.tipo === "pronosticar"
+        ? [msg.serie, msg.pasos, py.toPy(msg.exog)]
+        : [msg.serie, msg.historial.fecha_inicio, py.toPy(msg.historial.y), py.toPy(msg.historial.exog), msg.pasos, py.toPy(msg.exog)];
     const proxy = fn(...args);
     try {
       return proxy.toJs({ dict_converter: Object.fromEntries });

@@ -68,9 +68,13 @@ export const iniciarPyodide = () => enviar<{ versiones: Record<string, string> }
 
 const urlModelo = (meta: ArimaMeta) => new URL(`/models/${meta.archivo}`, window.location.origin).href;
 
-/** Pronóstico del periodo de test (desde el final de train) con las exógenas reales. */
-export function pronosticarTestArima(meta: ArimaMeta): Promise<Resultado> {
-  return enviar<Resultado>({ tipo: "pronosticar", serie: meta.serie, urlModelo: urlModelo(meta), pasos: meta.test.exog.length, exog: meta.test.exog });
+/** Descarga y carga el .joblib en Pyodide sin pronosticar (para habilitar la interfaz). */
+export const precargarArima = (meta: ArimaMeta) => enviar<{ cargado: boolean }>({ tipo: "precargar", serie: meta.serie, urlModelo: urlModelo(meta) });
+
+/** Pronóstico de referencia (arima_meta → referencia) para comparar Pyodide con Python. */
+export function pronosticarReferenciaArima(meta: ArimaMeta): Promise<Resultado> {
+  const r = meta.referencia;
+  return enviar<Resultado>({ tipo: "pronosticar", serie: meta.serie, urlModelo: urlModelo(meta), pasos: r.exog.length, exog: r.exog });
 }
 
 /** Matriz exógena del escenario en el orden que espera el modelo (meta.exogenas). */
@@ -86,26 +90,32 @@ export function exogArima(meta: ArimaMeta, fechas: string[], esc: Escenario): nu
   });
 }
 
+/** Fechas futuras del pronóstico: desde ultima_fecha + 1 (el .joblib es el modelo reentrenado). */
+export const fechasFuturas = (meta: { ultima_fecha: string }, pasos: number) =>
+  Array.from({ length: pasos }, (_, i) => sumarDias(meta.ultima_fecha, i + 1));
+
+/** Historial propio para `results.apply`: y = null en días cerrados (observación faltante). */
+export type HistorialArima = { fecha_inicio: string; y: (number | null)[]; exog: number[][] };
+
 /**
- * Pronóstico futuro de un escenario: el modelo se extiende con los 42 días de test
- * (último dato real) y luego pronostica `horizonte` días con las exógenas del escenario.
+ * Pronóstico ARIMA con una matriz exógena ya construida (en el orden de meta.exogenas).
+ * Sin historial: get_forecast desde el último dato del dataset. Con historial: el worker
+ * aplica `results.apply(endog, exog)` sobre esos días y luego pronostica.
  */
-export async function pronosticarArima(meta: ArimaMeta, esc: Escenario): Promise<PuntoPronostico[]> {
-  const ultima = meta.test.fechas[meta.test.fechas.length - 1];
-  const fechas = Array.from({ length: esc.horizonte }, (_, i) => sumarDias(ultima, i + 1));
-  const r = await enviar<Resultado>({
-    tipo: "pronosticar",
-    serie: meta.serie,
-    urlModelo: urlModelo(meta),
-    pasos: esc.horizonte,
-    exog: exogArima(meta, fechas, esc),
-    extension: { y: meta.test.ventas, exog: meta.test.exog },
-  });
+export async function pronosticarArimaExog(meta: ArimaMeta, exog: number[][], historial?: HistorialArima): Promise<PuntoPronostico[]> {
+  const fechas = fechasFuturas(meta, exog.length);
+  const base = { serie: meta.serie, urlModelo: urlModelo(meta), pasos: exog.length, exog };
+  const r = await enviar<Resultado>(historial ? { ...base, tipo: "aplicar_y_predecir", historial } : { ...base, tipo: "pronosticar" });
   // Las ventas no pueden ser negativas (mismo recorte que en el backend).
   return fechas.map((fecha, i) => ({
     fecha,
     pred: Math.max(0, r.media[i]),
     li: Math.max(0, r.li[i]),
-    ls: r.ls[i],
+    ls: Math.max(0, r.ls[i]),
   }));
+}
+
+/** Pronóstico futuro de un escenario de /escenarios (desde el día siguiente al último dato). */
+export function pronosticarArima(meta: ArimaMeta, esc: Escenario): Promise<PuntoPronostico[]> {
+  return pronosticarArimaExog(meta, exogArima(meta, fechasFuturas(meta, esc.horizonte), esc));
 }
